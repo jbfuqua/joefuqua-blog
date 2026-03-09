@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const { 
+  title = 'Joe Fuqua', 
+  description = 'Joe Fuqua has been watching humans panic about intelligent machines since 1988. He writes about the longer arc — why the panic is usually wrong, how governance becomes the actual competitive advantage, and what it takes to build organizations that are ready for what comes next.',
+  currentPath = ''
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title === 'Joe Fuqua' ? title : `${title} — Joe Fuqua`}</title>
+  <link rel="canonical" href={`https://joefuqua.blog${currentPath}`} />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <a href="/" class="site-name">Joe <span>Fuqua</span></a>
+      <div class="masthead-meta">
+        Enterprise AI Governance &amp; Architecture<br/>
+        Algorithm &amp; Blues · Weekly<br/>
+        Charlotte, NC · Est. 1988
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="/writing" class={currentPath.startsWith('/writing') ? 'active' : ''}>Writing</a>
+      <a href="/writing?category=governance" class={currentPath.includes('governance') ? 'active' : ''}>Governance</a>
+      <a href="/writing?category=futures" class={currentPath.includes('futures') ? 'active' : ''}>Futures</a>
+      <a href="/writing?category=technology-society">Technology &amp; Society</a>
+      <a href="/algorithm-and-blues" class={currentPath.startsWith('/algorithm-and-blues') ? 'active' : ''}>Algorithm &amp; Blues</a>
+      <a href="/about">About</a>
+      <span class="nav-right">
+        <a href="/algorithm-and-blues#subscribe" class="nav-subscribe">Subscribe</a>
+      </span>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <slot />
+  </main>
+
+  <section class="newsletter-band">
+    <div>
+      <div class="newsletter-eyebrow">Algorithm &amp; Blues · Weekly</div>
+      <div class="newsletter-headline">AI research translated into decisions<br/><em>executives can actually make.</em></div>
+      <div class="newsletter-sub">43 issues. No hype. No filler. One clear argument per week.</div>
+    </div>
+    <div>
+      <form class="newsletter-form" action="/subscribe" method="POST">
+        <input type="email" name="email" class="newsletter-input" placeholder="your@email.com" />
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">Joe <span>Fuqua</span> · joefuqua.blog</div>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/joefuqua" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/algorithm-and-blues">Algorithm &amp; Blues</a>
+      <a href="https://contemplations.ai" target="_blank" rel="noopener">contemplations.ai</a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+    <div class="footer-copy">© 2026 Joe Fuqua · Charlotte, NC · Enterprise AI Governance &amp; Architecture · 40 years in technology</div>
+  </footer>
+
+</body>
+</html>

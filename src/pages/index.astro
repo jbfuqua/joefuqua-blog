@@ -1,0 +1,463 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch and sort all content
+const articles = await getCollection('articles');
+const anb = await getCollection('anb');
+
+const allPosts = [...articles, ...anb].sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const recentArticles = articles
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const recentAnb = anb
+  .sort((a, b) => (b.data.issue ?? 0) - (a.data.issue ?? 0))
+  .slice(0, 4);
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
+function articleUrl(post: any) {
+  const col = post.collection;
+  const slug = post.data.slug || post.slug;
+  return col === 'anb' ? `/algorithm-and-blues/${slug}` : `/writing/${slug}`;
+}
+---
+
+<BaseLayout currentPath="/">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-lede">
+      <div class="hero-eyebrow">On Technology &amp; the Long Arc</div>
+      <h1 class="hero-statement">
+        Joe Fuqua has been watching humans <em>panic about intelligent machines</em> since 1988.
+      </h1>
+      <p class="hero-body">
+        He writes about the longer arc — why the panic is usually wrong, how <strong>governance becomes the actual competitive advantage</strong>, and what it takes to build organizations that are ready for what comes next.
+      </p>
+    </div>
+
+    <aside class="hero-sidebar">
+      <div class="sidebar-label">Recently Published</div>
+      {recentAnb.map(post => (
+        <div class="sidebar-item">
+          <div class="sidebar-item-tag">Algorithm &amp; Blues · #{post.data.issue}</div>
+          <a href={articleUrl(post)} class="sidebar-item-title">{post.data.title}</a>
+          {post.data.excerpt && (
+            <div class="sidebar-item-meta">{post.data.excerpt.slice(0, 80)}…</div>
+          )}
+        </div>
+      ))}
+    </aside>
+  </section>
+
+  <!-- FEATURED ARTICLES -->
+  <div class="section-divider">
+    <div class="section-divider-inner">
+      <span class="section-title">Featured Writing</span>
+      <span class="section-rule"></span>
+      <a href="/writing" class="section-link">All Articles →</a>
+    </div>
+  </div>
+
+  <section class="featured-grid">
+    {recentArticles.map((post, i) => (
+      <div class="featured-card">
+        <div class="card-tag">{post.data.category}</div>
+        <a href={articleUrl(post)}>
+          <h2 class="card-title">{post.data.title}</h2>
+        </a>
+        {i === 0 && post.data.excerpt && (
+          <p class="card-excerpt">{post.data.excerpt}</p>
+        )}
+        <div class="card-meta">
+          <span>{formatDate(post.data.date)}</span>
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- PULLQUOTE -->
+  <div class="pullquote-band">
+    <blockquote class="pullquote">
+      The organizations that will win the agentic AI era are not the ones that deployed the most agents. They are the ones that figured out what the agents were actually doing.
+    </blockquote>
+    <div class="pullquote-attr">— Joe Fuqua · Algorithm &amp; Blues</div>
+  </div>
+
+  <!-- THEMES -->
+  <div class="section-divider" style="margin-top: 0;">
+    <div class="section-divider-inner">
+      <span class="section-title">By Theme</span>
+      <span class="section-rule"></span>
+      <a href="/writing" class="section-link">Browse Archive →</a>
+    </div>
+  </div>
+
+  <section class="themes">
+    {[
+      { name: 'Governance & Control', key: 'governance' },
+      { name: 'Futures & Long Arc', key: 'futures' },
+      { name: 'Technology & Society', key: 'technology-society' },
+    ].map(theme => {
+      const themed = articles.filter(a => a.data.category === theme.key)
+        .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+        .slice(0, 5);
+      return (
+        <div class="theme-section">
+          <div class="theme-header">
+            <span class="theme-name">{theme.name}</span>
+            <span class="theme-count">{articles.filter(a => a.data.category === theme.key).length} articles</span>
+          </div>
+          <ul class="theme-articles">
+            {themed.map(post => (
+              <li class="theme-article">
+                <span class="theme-article-bullet">◆</span>
+                <a href={articleUrl(post)} class="theme-article-title">{post.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    })}
+
+    <div class="theme-section">
+      <div class="theme-header">
+        <span class="theme-name">Algorithm &amp; Blues</span>
+        <span class="theme-count">{anb.length} issues</span>
+      </div>
+      <ul class="theme-articles">
+        {recentAnb.map(post => (
+          <li class="theme-article">
+            <span class="theme-article-bullet">◆</span>
+            <a href={articleUrl(post)} class="theme-article-title">#{post.data.issue} · {post.data.title}</a>
+          </li>
+        ))}
+        <li class="theme-article">
+          <span class="theme-article-bullet">◆</span>
+          <a href="/algorithm-and-blues" class="theme-article-title">Browse all {anb.length} issues →</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── PAGE WRAPPER ── */
+  .page-wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem) 0;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 0;
+    align-items: start;
+    border-bottom: 1px solid var(--paper-rule);
+  }
+
+  .hero-lede {
+    padding-right: 3rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 2.5rem;
+    background: var(--accent);
+  }
+
+  .hero-statement {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .hero-statement em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  .hero-body {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--ink-mid);
+    max-width: 62ch;
+    line-height: 1.8;
+  }
+
+  .hero-body strong { font-weight: 700; color: var(--ink); }
+
+  /* ── SIDEBAR ── */
+  .hero-sidebar {
+    border-left: 1px solid var(--paper-rule);
+    padding: 0 0 2.5rem 2rem;
+  }
+
+  .sidebar-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--paper-rule);
+  }
+
+  .sidebar-item {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--paper-rule);
+  }
+
+  .sidebar-item:last-child { border-bottom: none; }
+
+  .sidebar-item-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .sidebar-item-title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+
+  .sidebar-item-title:hover { color: var(--accent); }
+
+  .sidebar-item-meta {
+    font-family: var(--font-mono);
+    font-size: 0.57rem;
+    color: var(--ink-faint);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+
+  /* ── FEATURED GRID ── */
+  .featured-grid {
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .featured-card {
+    padding: 1.75rem 2rem 1.75rem 0;
+    border-right: 1px solid var(--paper-rule);
+  }
+
+  .featured-card:last-child { border-right: none; padding-right: 0; padding-left: 2rem; }
+  .featured-card:nth-child(2) { padding-left: 2rem; }
+
+  .card-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ink);
+    transition: color 0.15s;
+    margin-bottom: 0.65rem;
+    display: block;
+    font-size: 1.1rem;
+  }
+
+  .card-title:hover { color: var(--accent); }
+  .featured-card:first-child .card-title { font-size: clamp(1.3rem, 2vw, 1.65rem); }
+
+  .card-excerpt {
+    font-size: 0.875rem;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    margin-bottom: 0.65rem;
+  }
+
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 0.57rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote-band {
+    padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--paper-rule);
+    border-bottom: 1px solid var(--paper-rule);
+    background: var(--paper-warm);
+  }
+
+  .pullquote {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.5;
+    max-width: 72ch;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    padding: 0 2rem;
+  }
+
+  .pullquote::before {
+    content: '\201C';
+    font-size: 3.5rem;
+    color: var(--accent);
+    opacity: 0.25;
+    position: absolute;
+    top: -1.25rem;
+    left: 0;
+    line-height: 1;
+  }
+
+  .pullquote-attr {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  /* ── THEMES ── */
+  .themes {
+    padding: 0 clamp(1.5rem, 5vw, 4rem) 3.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--paper-rule);
+    margin-top: 0;
+  }
+
+  .theme-section {
+    padding: 1.75rem 2.5rem 1.75rem 0;
+    border-right: 1px solid var(--paper-rule);
+  }
+
+  .theme-section:nth-child(even) {
+    padding-left: 2.5rem;
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .theme-section:nth-child(n+3) {
+    border-top: 1px solid var(--paper-rule);
+  }
+
+  .theme-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--paper-rule);
+  }
+
+  .theme-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .theme-count {
+    font-family: var(--font-mono);
+    font-size: 0.57rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+
+  .theme-articles { list-style: none; }
+
+  .theme-article {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--paper-rule);
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+  }
+
+  .theme-article:last-child { border-bottom: none; }
+
+  .theme-article-bullet {
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .theme-article-title {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--ink-mid);
+    line-height: 1.4;
+    transition: color 0.15s;
+  }
+
+  .theme-article-title:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr 260px; }
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-lede { padding-right: 0; border-bottom: 1px solid var(--paper-rule); }
+    .hero-sidebar { border-left: none; padding-left: 0; padding-top: 1.5rem; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .featured-card { border-right: none; border-bottom: 1px solid var(--paper-rule); padding: 1.5rem 0; }
+    .featured-card:nth-child(2), .featured-card:last-child { padding-left: 0; }
+    .themes { grid-template-columns: 1fr; }
+    .theme-section { border-right: none; border-bottom: 1px solid var(--paper-rule); padding: 1.5rem 0; }
+    .theme-section:nth-child(even) { padding-left: 0; }
+    .theme-section:nth-child(n+3) { border-top: none; }
+  }
+</style>

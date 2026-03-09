@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const anb = await getCollection('anb');
+const sorted = anb.sort((a, b) => (b.data.issue ?? 0) - (a.data.issue ?? 0));
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric'
+  });
+}
+---
+
+<BaseLayout title="Algorithm & Blues" currentPath="/algorithm-and-blues">
+
+  <div style="max-width: 720px; margin: 0 auto; padding: 3rem clamp(1.5rem, 5vw, 5rem) 0;">
+    <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;">Weekly Newsletter</div>
+    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem;">Algorithm &amp; Blues</h1>
+    <p style="font-size: 1.05rem; color: var(--ink-mid); line-height: 1.8; max-width: 54ch;">
+      AI research translated into decisions executives can actually make. Published every Sunday since May 2025. No hype, no filler — one clear argument per issue.
+    </p>
+    <div id="subscribe" style="display: flex; gap: 0; margin-top: 2rem; max-width: 420px;">
+      <input type="email" placeholder="your@email.com" style="flex: 1; background: white; border: 1px solid var(--paper-rule); border-right: none; color: var(--ink); font-family: var(--font-mono); font-size: 0.8rem; padding: 0.8rem 1rem; outline: none;" />
+      <button style="background: var(--ink); border: 1px solid var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 1.25rem; cursor: pointer; white-space: nowrap;">Subscribe</button>
+    </div>
+  </div>
+
+  <div class="section-divider" style="margin-top: 3rem;">
+    <div class="section-divider-inner">
+      <span class="section-title">All Issues</span>
+      <span class="section-rule"></span>
+      <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);">{sorted.length} issues</span>
+    </div>
+  </div>
+
+  <div class="article-list">
+    {sorted.map(post => (
+      <div class="article-card">
+        <div class="card-date">
+          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); font-weight: 600;">#{post.data.issue}</div>
+          <div style="margin-top: 0.25rem;">{formatDate(post.data.date)}</div>
+        </div>
+        <div class="card-body">
+          <a href={`/algorithm-and-blues/${post.data.slug || post.slug}`}>
+            <div class="card-title">{post.data.title}</div>
+          </a>
+          {post.data.excerpt && (
+            <p class="card-excerpt">{post.data.excerpt}</p>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+</BaseLayout>
