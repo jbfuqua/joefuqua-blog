@@ -65,8 +65,9 @@ const {
         <span id="subscribe-msg" style="display:none; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--accent-light); padding-left: 1rem;"></span>
       </div>
 
-      <script is:inline>
-        document.getElementById('subscribe-btn').addEventListener('click', async () => {
+    <script is:inline>
+      console.log('script loaded');
+      document.getElementById('subscribe-btn').addEventListener('click', async () => {       
           const email = document.getElementById('subscribe-email').value.trim();
           const msg = document.getElementById('subscribe-msg');
           const btn = document.getElementById('subscribe-btn');
