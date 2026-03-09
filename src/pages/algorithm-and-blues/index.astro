@@ -1,30 +1,71 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-
 const anb = await getCollection('anb');
 const sorted = anb.sort((a, b) => (b.data.issue ?? 0) - (a.data.issue ?? 0));
-
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric'
   });
 }
 ---
-
 <BaseLayout title="Algorithm & Blues" currentPath="/algorithm-and-blues">
-
   <div style="max-width: 720px; margin: 0 auto; padding: 3rem clamp(1.5rem, 5vw, 5rem) 0;">
     <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;">Weekly Newsletter</div>
     <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem;">Algorithm &amp; Blues</h1>
     <p style="font-size: 1.05rem; color: var(--ink-mid); line-height: 1.8; max-width: 54ch;">
       AI research translated into decisions executives can actually make. Published every Sunday since May 2025. No hype, no filler — one clear argument per issue.
     </p>
-    <div id="subscribe" style="display: flex; gap: 0; margin-top: 2rem; max-width: 420px;">
-      <input type="email" placeholder="your@email.com" style="flex: 1; background: white; border: 1px solid var(--paper-rule); border-right: none; color: var(--ink); font-family: var(--font-mono); font-size: 0.8rem; padding: 0.8rem 1rem; outline: none;" />
-      <button style="background: var(--ink); border: 1px solid var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 1.25rem; cursor: pointer; white-space: nowrap;">Subscribe</button>
+    <div id="subscribe" style="margin-top: 2rem; max-width: 420px;">
+      <div style="display: flex; gap: 0;">
+        <input type="email" id="anb-email" placeholder="your@email.com" style="flex: 1; background: white; border: 1px solid var(--paper-rule); border-right: none; color: var(--ink); font-family: var(--font-mono); font-size: 0.8rem; padding: 0.8rem 1rem; outline: none;" />
+        <button id="anb-btn" style="background: var(--ink); border: 1px solid var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 1.25rem; cursor: pointer; white-space: nowrap;">Subscribe</button>
+      </div>
+      <span id="anb-msg" style="display:none; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--accent-light); margin-top: 0.75rem;"></span>
     </div>
   </div>
+
+  <script is:inline>
+    document.getElementById('anb-btn').addEventListener('click', async () => {
+      const email = document.getElementById('anb-email').value.trim();
+      const msg = document.getElementById('anb-msg');
+      const btn = document.getElementById('anb-btn');
+
+      if (!email || !email.includes('@')) {
+        msg.textContent = 'Please enter a valid email.';
+        msg.style.display = 'block';
+        return;
+      }
+
+      btn.textContent = 'Subscribing...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('https://beehiiv-subscribe.joe-b-fuqua.workers.dev', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (res.ok) {
+          msg.textContent = "You're in. See you Sunday.";
+          msg.style.display = 'block';
+          document.getElementById('anb-email').value = '';
+          btn.style.display = 'none';
+        } else {
+          msg.textContent = 'Something went wrong. Try again.';
+          msg.style.display = 'block';
+          btn.textContent = 'Subscribe';
+          btn.disabled = false;
+        }
+      } catch (e) {
+        msg.textContent = 'Something went wrong. Try again.';
+        msg.style.display = 'block';
+        btn.textContent = 'Subscribe';
+        btn.disabled = false;
+      }
+    });
+  </script>
 
   <div class="section-divider" style="margin-top: 3rem;">
     <div class="section-divider-inner">
@@ -33,7 +74,6 @@ function formatDate(d: string) {
       <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);">{sorted.length} issues</span>
     </div>
   </div>
-
   <div class="article-list">
     {sorted.map(post => (
       <div class="article-card">
@@ -52,5 +92,4 @@ function formatDate(d: string) {
       </div>
     ))}
   </div>
-
 </BaseLayout>
