@@ -68,7 +68,8 @@ const {
 
     <script is:inline>
       console.log('script loaded');
-      document.getElementById('subscribe-btn').addEventListener('click', async () => {       
+      document.getElementById('subscribe-btn').addEventListener('click', async () => {   
+	  console.log('button clicked');    
           const email = document.getElementById('subscribe-email').value.trim();
           const msg = document.getElementById('subscribe-msg');
           const btn = document.getElementById('subscribe-btn');
