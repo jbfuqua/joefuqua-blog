@@ -82,7 +82,7 @@ const {
             btn.disabled = true;
 
             try {
-              const res = await fetch('https://api.beehiiv.com/v2/publications/pub_f615b87c-5293-4351-a178-482a353c496b/subscriptions', {
+             const res = await fetch('https://beehiiv-subscribe.joe-b-fuqua.workers.dev', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
