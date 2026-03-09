@@ -66,51 +66,53 @@ const {
       </div>
 
       <script>
-        document.getElementById('subscribe-btn').addEventListener('click', async () => {
-          const email = document.getElementById('subscribe-email').value.trim();
-          const msg = document.getElementById('subscribe-msg');
-          const btn = document.getElementById('subscribe-btn');
+        document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById('subscribe-btn').addEventListener('click', async () => {
+            const email = document.getElementById('subscribe-email').value.trim();
+            const msg = document.getElementById('subscribe-msg');
+            const btn = document.getElementById('subscribe-btn');
 
-          if (!email || !email.includes('@')) {
-            msg.textContent = 'Please enter a valid email.';
-            msg.style.display = 'inline';
-            return;
-          }
-
-          btn.textContent = 'Subscribing...';
-          btn.disabled = true;
-
-          try {
-            const res = await fetch('https://api.beehiiv.com/v2/publications/pub_f615b87c-5293-4351-a178-482a353c496b/subscriptions', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email,
-                reactivate_existing: false,
-                send_welcome_email: true,
-                utm_source: 'joefuqua.blog',
-                utm_medium: 'website',
-              }),
-            });
-
-            if (res.ok) {
-              msg.textContent = 'You're in. See you Sunday.';
-              msg.style.color = 'var(--accent-light)';
+            if (!email || !email.includes('@')) {
+              msg.textContent = 'Please enter a valid email.';
               msg.style.display = 'inline';
-              document.getElementById('subscribe-email').value = '';
-              btn.style.display = 'none';
-            } else {
+              return;
+            }
+
+            btn.textContent = 'Subscribing...';
+            btn.disabled = true;
+
+            try {
+              const res = await fetch('https://api.beehiiv.com/v2/publications/pub_f615b87c-5293-4351-a178-482a353c496b/subscriptions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email,
+                  reactivate_existing: false,
+                  send_welcome_email: true,
+                  utm_source: 'joefuqua.blog',
+                  utm_medium: 'website',
+                }),
+              });
+
+              if (res.ok) {
+                msg.textContent = "You're in. See you Sunday.";
+                msg.style.color = 'var(--accent-light)';
+                msg.style.display = 'inline';
+                document.getElementById('subscribe-email').value = '';
+                btn.style.display = 'none';
+              } else {
+                msg.textContent = 'Something went wrong. Try again.';
+                msg.style.display = 'inline';
+                btn.textContent = 'Subscribe';
+                btn.disabled = false;
+              }
+            } catch (e) {
               msg.textContent = 'Something went wrong. Try again.';
               msg.style.display = 'inline';
               btn.textContent = 'Subscribe';
               btn.disabled = false;
             }
-          } catch (e) {
-            msg.textContent = 'Something went wrong. Try again.';
-            msg.style.display = 'inline';
-            btn.textContent = 'Subscribe';
-            btn.disabled = false;
-          }
+          });
         });
       </script>
     </div>
