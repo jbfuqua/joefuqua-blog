@@ -1,15 +1,26 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import {
   getWritingCategoryHref,
   writingCategoryLabels,
   writingCategoryOrder,
-} from '../../lib/writing';
+} from '../../../lib/writing';
 
+export async function getStaticPaths() {
+  return writingCategoryOrder.map((category) => ({
+    params: { category },
+  }));
+}
+
+const { category } = Astro.params;
 const articles = await getCollection('articles');
 const sorted = articles.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const filtered = sorted.filter((article) => article.data.category === category);
+const categories = writingCategoryOrder.filter((name) =>
+  articles.some((article) => article.data.category === name)
 );
 
 function formatDate(d: string) {
@@ -17,39 +28,36 @@ function formatDate(d: string) {
     year: 'numeric', month: 'short', day: 'numeric'
   });
 }
-const categories = writingCategoryOrder.filter((category) =>
-  articles.some((article) => article.data.category === category)
-);
+
+const sectionTitle = writingCategoryLabels[category ?? ''] || category || 'Writing';
 ---
 
-<BaseLayout title="Writing" currentPath="/writing">
-
+<BaseLayout title={sectionTitle} currentPath={getWritingCategoryHref(category)}>
   <div class="section-divider" style="margin-top: 2.5rem;">
     <div class="section-divider-inner">
-      <span class="section-title">All Writing</span>
+      <span class="section-title">{sectionTitle}</span>
       <span class="section-rule"></span>
       <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);">
-        {sorted.length} articles
+        {filtered.length} articles
       </span>
     </div>
   </div>
 
-  <!-- Category filters -->
   <div style="padding: 1rem clamp(1.5rem, 5vw, 5rem); display: flex; gap: 0.75rem; flex-wrap: wrap; border-bottom: 1px solid var(--paper-rule);">
-    <a href="/writing" 
-       style={`font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid var(--ink); color: var(--ink); transition: all 0.15s;`}>
+    <a href="/writing"
+       style={`font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid var(--paper-rule); color: var(--ink-light); transition: all 0.15s;`}>
       All
     </a>
-    {categories.map(cat => (
-      <a href={getWritingCategoryHref(cat)}
-         style={`font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid var(--paper-rule); color: var(--ink-light); transition: all 0.15s;`}>
-        {writingCategoryLabels[cat] || cat}
+    {categories.map((name) => (
+      <a href={getWritingCategoryHref(name)}
+         style={`font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid ${category === name ? 'var(--ink)' : 'var(--paper-rule)'}; color: ${category === name ? 'var(--ink)' : 'var(--ink-light)'}; transition: all 0.15s;`}>
+        {writingCategoryLabels[name] || name}
       </a>
     ))}
   </div>
 
   <div class="article-list">
-    {sorted.map(post => (
+    {filtered.map((post) => (
       <div class="article-card">
         <div class="card-date">{formatDate(post.data.date)}</div>
         <div class="card-body">
@@ -64,5 +72,4 @@ const categories = writingCategoryOrder.filter((category) =>
       </div>
     ))}
   </div>
-
 </BaseLayout>

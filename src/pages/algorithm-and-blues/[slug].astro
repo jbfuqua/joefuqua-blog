@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import AlgorithmAndBluesLayout from '../../layouts/AlgorithmAndBluesLayout.astro';
 
 export async function getStaticPaths() {
   const anb = await getCollection('anb');
@@ -14,14 +14,13 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<ArticleLayout
+<AlgorithmAndBluesLayout
   title={post.data.title}
   date={post.data.date}
-  category="algorithm-and-blues"
+  thesis={post.data.excerpt}
   issue={post.data.issue}
-  excerpt={post.data.excerpt}
   source={post.data.source}
   currentPath={`/algorithm-and-blues/${post.data.slug || post.slug}`}
 >
   <Content />
-</ArticleLayout>
+</AlgorithmAndBluesLayout>

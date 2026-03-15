@@ -2,7 +2,7 @@
 title: "When LLMs Start Their Own Societies"
 date: 2025-05-18
 category: "algorithm-and-blues"
-slug: "this-is-the-inaugural-post-in-a-new-sunday-series-that-will"
+slug: "algorithm-blues-01"
 excerpt: "(This is the inaugural post in a new Sunday series that will dive deep into the AI-nerdverse, enter at your own risk 🙃)"
 source: "linkedin"
 ---

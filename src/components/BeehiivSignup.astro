@@ -1,0 +1,67 @@
+---
+import NewsletterSignup from './NewsletterSignup.astro';
+
+interface Props {
+  idPrefix: string;
+  title?: string;
+  blurb?: string;
+  appearance?: 'band' | 'inline';
+  eyebrow?: string;
+}
+
+const {
+  idPrefix,
+  title = 'Subscribe to Algorithm & Blues',
+  blurb = 'AI research translated into decisions executives can actually make.',
+  appearance = 'inline',
+  eyebrow = 'Algorithm & Blues · Weekly',
+} = Astro.props;
+---
+
+<section class="beehiiv-signup">
+  <div class="beehiiv-signup-copy">
+    <div class="beehiiv-signup-eyebrow">{eyebrow}</div>
+    <h2 class="beehiiv-signup-title">{title}</h2>
+    <p class="beehiiv-signup-blurb">{blurb}</p>
+  </div>
+
+  <div class="beehiiv-signup-form">
+    <NewsletterSignup idPrefix={idPrefix} appearance={appearance} />
+  </div>
+</section>
+
+<style>
+  .beehiiv-signup {
+    padding: 0;
+  }
+
+  .beehiiv-signup-copy {
+    margin-bottom: 1rem;
+  }
+
+  .beehiiv-signup-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .beehiiv-signup-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .beehiiv-signup-blurb {
+    color: var(--ink-mid);
+    max-width: 56ch;
+  }
+  
+  .beehiiv-signup-form {
+    margin-top: 1rem;
+  }
+</style>

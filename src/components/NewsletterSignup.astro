@@ -1,0 +1,140 @@
+---
+interface Props {
+  idPrefix: string;
+  appearance?: 'band' | 'inline';
+}
+
+const {
+  idPrefix,
+  appearance = 'band',
+} = Astro.props;
+
+const isBand = appearance === 'band';
+const emailId = `${idPrefix}-email`;
+const buttonId = `${idPrefix}-btn`;
+const messageId = `${idPrefix}-msg`;
+---
+
+<div class:list={[isBand ? undefined : 'newsletter-inline-wrap']}>
+  <div class:list={[isBand ? 'newsletter-form' : 'newsletter-inline-form']}>
+    <input
+      type="email"
+      id={emailId}
+      class:list={[isBand ? 'newsletter-input' : 'newsletter-inline-input']}
+      placeholder="your@email.com"
+    />
+    <button
+      id={buttonId}
+      class:list={[isBand ? 'newsletter-btn' : 'newsletter-inline-btn']}
+    >
+      Subscribe
+    </button>
+    {isBand && (
+      <span id={messageId} class="newsletter-message newsletter-message-inline"></span>
+    )}
+  </div>
+
+  {!isBand && (
+    <span id={messageId} class="newsletter-message newsletter-message-block"></span>
+  )}
+</div>
+
+<script define:vars={{ emailId, buttonId, messageId, isBand }} is:inline>
+  const emailInput = document.getElementById(emailId);
+  const button = document.getElementById(buttonId);
+  const message = document.getElementById(messageId);
+
+  button?.addEventListener('click', async () => {
+    const email = emailInput?.value.trim() ?? '';
+
+    if (!email || !email.includes('@')) {
+      if (message) {
+        message.textContent = 'Please enter a valid email.';
+        message.style.display = isBand ? 'inline' : 'block';
+      }
+      return;
+    }
+
+    if (!button || !message || !emailInput) {
+      return;
+    }
+
+    button.textContent = 'Subscribing...';
+    button.disabled = true;
+
+    try {
+      const response = await fetch('https://beehiiv-subscribe.joe-b-fuqua.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        message.textContent = "You're in. See you Sunday.";
+        message.style.display = isBand ? 'inline' : 'block';
+        emailInput.value = '';
+        button.style.display = 'none';
+        return;
+      }
+    } catch {
+      // Fall through to the shared error state.
+    }
+
+    message.textContent = 'Something went wrong. Try again.';
+    message.style.display = isBand ? 'inline' : 'block';
+    button.textContent = 'Subscribe';
+    button.disabled = false;
+  });
+</script>
+
+<style>
+  .newsletter-message {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--accent-light);
+  }
+
+  .newsletter-message-inline {
+    padding-left: 1rem;
+  }
+
+  .newsletter-message-block {
+    margin-top: 0.75rem;
+  }
+
+  .newsletter-inline-wrap {
+    max-width: 420px;
+  }
+
+  .newsletter-inline-form {
+    display: flex;
+    gap: 0;
+  }
+
+  .newsletter-inline-input {
+    flex: 1;
+    background: white;
+    border: 1px solid var(--paper-rule);
+    border-right: none;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.8rem 1rem;
+    outline: none;
+  }
+
+  .newsletter-inline-btn {
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.25rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+</style>

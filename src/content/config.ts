@@ -5,6 +5,7 @@ const baseSchema = z.object({
   title: z.string(),
   date: z.coerce.date(),                   // accepts both string and Date from YAML
   excerpt: z.string().optional(),
+  draft: z.boolean().optional(),
   slug: z.string().optional(),
   source: z.string().default('original'),  // 'linkedin' or 'original'
   category: z.string().default('uncategorized'),

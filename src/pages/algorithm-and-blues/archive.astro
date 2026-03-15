@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const anb = await getCollection('anb');
+const sorted = anb.sort((a, b) => (b.data.issue ?? 0) - (a.data.issue ?? 0));
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+---
+
+<BaseLayout title="Algorithm & Blues Archive" currentPath="/algorithm-and-blues/archive">
+  <div style="max-width: 720px; margin: 0 auto; padding: 3rem clamp(1.5rem, 5vw, 5rem) 0;">
+    <div class="article-eyebrow">Algorithm &amp; Blues Archive</div>
+    <h1 class="article-title" style="margin-bottom: 1rem;">All Issues</h1>
+    <p style="font-size: 1rem; color: var(--ink-mid); line-height: 1.8; max-width: 56ch;">
+      The full publication archive, ordered by issue number and publication date.
+    </p>
+  </div>
+
+  <div class="section-divider" style="margin-top: 3rem;">
+    <div class="section-divider-inner">
+      <span class="section-title">Archive</span>
+      <span class="section-rule"></span>
+      <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);">{sorted.length} issues</span>
+    </div>
+  </div>
+
+  <div class="article-list">
+    {sorted.map(post => (
+      <div class="article-card">
+        <div class="card-date">
+          <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); font-weight: 600;">#{post.data.issue}</div>
+          <div style="margin-top: 0.25rem;">{formatDate(post.data.date)}</div>
+        </div>
+        <div class="card-body">
+          <a href={`/algorithm-and-blues/${post.data.slug || post.slug}`}>
+            <div class="card-title">{post.data.title}</div>
+          </a>
+          {post.data.excerpt && (
+            <p class="card-excerpt">{post.data.excerpt}</p>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

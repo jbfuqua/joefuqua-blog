@@ -1,8 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BeehiivSignup from '../../components/BeehiivSignup.astro';
 import { getCollection } from 'astro:content';
+
 const anb = await getCollection('anb');
 const sorted = anb.sort((a, b) => (b.data.issue ?? 0) - (a.data.issue ?? 0));
+
+const [latestIssue, ...olderIssues] = sorted;
+const recentIssues = olderIssues.slice(0, 3);
+
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric'
@@ -10,72 +16,67 @@ function formatDate(d: string) {
 }
 ---
 <BaseLayout title="Algorithm & Blues" currentPath="/algorithm-and-blues">
-  <div style="max-width: 720px; margin: 0 auto; padding: 3rem clamp(1.5rem, 5vw, 5rem) 0;">
-    <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;">Weekly Newsletter</div>
-    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem;">Algorithm &amp; Blues</h1>
-    <p style="font-size: 1.05rem; color: var(--ink-mid); line-height: 1.8; max-width: 54ch;">
-      AI research translated into decisions executives can actually make. Published every Sunday since May 2025. No hype, no filler — one clear argument per issue.
-    </p>
-    <div id="subscribe" style="margin-top: 2rem; max-width: 420px;">
-      <div style="display: flex; gap: 0;">
-        <input type="email" id="anb-email" placeholder="your@email.com" style="flex: 1; background: white; border: 1px solid var(--paper-rule); border-right: none; color: var(--ink); font-family: var(--font-mono); font-size: 0.8rem; padding: 0.8rem 1rem; outline: none;" />
-        <button id="anb-btn" style="background: var(--ink); border: 1px solid var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.8rem 1.25rem; cursor: pointer; white-space: nowrap;">Subscribe</button>
+  <section class="anb-landing">
+    <div class="anb-landing-copy">
+      <div class="article-eyebrow">Weekly Publication</div>
+      <h1 class="article-title" style="margin-bottom: 1rem;">Algorithm &amp; Blues</h1>
+      <p class="anb-landing-lede">
+        AI research translated into decisions executives can actually make. One clear argument per issue, published weekly.
+      </p>
+      <div class="anb-landing-links">
+        <a href={latestIssue ? `/algorithm-and-blues/${latestIssue.data.slug || latestIssue.slug}` : '/algorithm-and-blues/archive'} class="anb-landing-primary">
+          Read Latest Issue
+        </a>
+        <a href="/algorithm-and-blues/archive" class="anb-landing-secondary">Browse Archive</a>
       </div>
-      <span id="anb-msg" style="display:none; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--accent-light); margin-top: 0.75rem;"></span>
     </div>
-  </div>
 
-  <script is:inline>
-    document.getElementById('anb-btn').addEventListener('click', async () => {
-      const email = document.getElementById('anb-email').value.trim();
-      const msg = document.getElementById('anb-msg');
-      const btn = document.getElementById('anb-btn');
+    <div id="subscribe">
+      <BeehiivSignup
+        idPrefix="anb-home"
+        title="Get the weekly issue"
+        blurb="Published every Sunday since May 2025. No hype, no filler, one clear argument per issue."
+      />
+    </div>
+  </section>
 
-      if (!email || !email.includes('@')) {
-        msg.textContent = 'Please enter a valid email.';
-        msg.style.display = 'block';
-        return;
-      }
+  {latestIssue && (
+    <>
+      <div class="section-divider" style="margin-top: 3rem;">
+        <div class="section-divider-inner">
+          <span class="section-title">Latest Issue</span>
+          <span class="section-rule"></span>
+          <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);">#{latestIssue.data.issue}</span>
+        </div>
+      </div>
 
-      btn.textContent = 'Subscribing...';
-      btn.disabled = true;
-
-      try {
-        const res = await fetch('https://beehiiv-subscribe.joe-b-fuqua.workers.dev', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email }),
-        });
-
-        if (res.ok) {
-          msg.textContent = "You're in. See you Sunday.";
-          msg.style.display = 'block';
-          document.getElementById('anb-email').value = '';
-          btn.style.display = 'none';
-        } else {
-          msg.textContent = 'Something went wrong. Try again.';
-          msg.style.display = 'block';
-          btn.textContent = 'Subscribe';
-          btn.disabled = false;
-        }
-      } catch (e) {
-        msg.textContent = 'Something went wrong. Try again.';
-        msg.style.display = 'block';
-        btn.textContent = 'Subscribe';
-        btn.disabled = false;
-      }
-    });
-  </script>
+      <section class="anb-feature">
+        <div class="anb-feature-meta">
+          <div class="anb-feature-issue">Issue #{latestIssue.data.issue}</div>
+          <div>{formatDate(latestIssue.data.date)}</div>
+        </div>
+        <div class="anb-feature-body">
+          <a href={`/algorithm-and-blues/${latestIssue.data.slug || latestIssue.slug}`}>
+            <h2 class="card-title">{latestIssue.data.title}</h2>
+          </a>
+          {latestIssue.data.excerpt && (
+            <p class="card-excerpt" style="max-width: 56ch;">{latestIssue.data.excerpt}</p>
+          )}
+        </div>
+      </section>
+    </>
+  )}
 
   <div class="section-divider" style="margin-top: 3rem;">
     <div class="section-divider-inner">
-      <span class="section-title">All Issues</span>
+      <span class="section-title">Recent Issues</span>
       <span class="section-rule"></span>
-      <span style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink-faint);">{sorted.length} issues</span>
+      <a href="/algorithm-and-blues/archive" class="section-link">Full Archive →</a>
     </div>
   </div>
+
   <div class="article-list">
-    {sorted.map(post => (
+    {recentIssues.map(post => (
       <div class="article-card">
         <div class="card-date">
           <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); font-weight: 600;">#{post.data.issue}</div>
@@ -93,3 +94,75 @@ function formatDate(d: string) {
     ))}
   </div>
 </BaseLayout>
+
+<style>
+  .anb-landing {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem clamp(1.5rem, 5vw, 5rem) 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .anb-landing-lede {
+    font-size: 1.05rem;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    max-width: 56ch;
+  }
+
+  .anb-landing-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .anb-landing-primary,
+  .anb-landing-secondary,
+  .anb-feature-issue {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .anb-landing-primary {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.7rem 1rem;
+  }
+
+  .anb-landing-secondary {
+    border: 1px solid var(--paper-rule);
+    color: var(--ink-mid);
+    padding: 0.7rem 1rem;
+  }
+
+  .anb-feature {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem clamp(1.5rem, 5vw, 5rem) 0;
+  }
+
+  .anb-feature-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-light);
+  }
+
+  .anb-feature-issue {
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  @media (max-width: 900px) {
+    .anb-landing,
+    .anb-feature {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

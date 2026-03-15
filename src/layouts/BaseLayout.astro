@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { getWritingCategoryHref } from '../lib/writing';
 
 interface Props {
   title?: string;
@@ -12,6 +15,9 @@ const {
   description = 'Joe Fuqua has been watching humans panic about intelligent machines since 1988. He writes about the longer arc — why the panic is usually wrong, how governance becomes the actual competitive advantage, and what it takes to build organizations that are ready for what comes next.',
   currentPath = ''
 } = Astro.props;
+
+const anb = await getCollection('anb');
+const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).length;
 ---
 
 <!DOCTYPE html>
@@ -37,9 +43,9 @@ const {
     </div>
     <nav class="nav">
       <a href="/writing" class={currentPath.startsWith('/writing') ? 'active' : ''}>Writing</a>
-      <a href="/writing?category=governance" class={currentPath.includes('governance') ? 'active' : ''}>Governance</a>
-      <a href="/writing?category=futures" class={currentPath.includes('futures') ? 'active' : ''}>Futures</a>
-      <a href="/writing?category=technology-society">Technology &amp; Society</a>
+      <a href={getWritingCategoryHref('governance')} class={currentPath.includes('/writing/category/governance') ? 'active' : ''}>Governance</a>
+      <a href={getWritingCategoryHref('futures')} class={currentPath.includes('/writing/category/futures') ? 'active' : ''}>Futures</a>
+      <a href={getWritingCategoryHref('technology-society')} class={currentPath.includes('/writing/category/technology-society') ? 'active' : ''}>Technology &amp; Society</a>
       <a href="/algorithm-and-blues" class={currentPath.startsWith('/algorithm-and-blues') ? 'active' : ''}>Algorithm &amp; Blues</a>
       <a href="/about">About</a>
       <span class="nav-right">
@@ -57,59 +63,10 @@ const {
     <div>
       <div class="newsletter-eyebrow">Algorithm &amp; Blues · Weekly</div>
       <div class="newsletter-headline">AI research translated into decisions<br/><em>executives can actually make.</em></div>
-      <div class="newsletter-sub">43 issues. No hype. No filler. One clear argument per week.</div>
+      <div class="newsletter-sub">{publishedAnbCount} issues. No hype. No filler. One clear argument per week.</div>
     </div>
     <div>
-      <div class="newsletter-form" id="subscribe-form">
-        <input type="email" id="subscribe-email" class="newsletter-input" placeholder="your@email.com" />
-        <button class="newsletter-btn" id="subscribe-btn">Subscribe</button>
-        <span id="subscribe-msg" style="display:none; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--accent-light); padding-left: 1rem;"></span>
-      </div>
-
-    <script is:inline>
-      console.log('script loaded');
-      document.getElementById('subscribe-btn').addEventListener('click', async () => {   
-	  console.log('button clicked');    
-          const email = document.getElementById('subscribe-email').value.trim();
-          const msg = document.getElementById('subscribe-msg');
-          const btn = document.getElementById('subscribe-btn');
-
-          if (!email || !email.includes('@')) {
-            msg.textContent = 'Please enter a valid email.';
-            msg.style.display = 'inline';
-            return;
-          }
-
-          btn.textContent = 'Subscribing...';
-          btn.disabled = true;
-
-          try {
-            const res = await fetch('https://beehiiv-subscribe.joe-b-fuqua.workers.dev', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email }),
-            });
-
-            if (res.ok) {
-              msg.textContent = "You're in. See you Sunday.";
-              msg.style.color = 'var(--accent-light)';
-              msg.style.display = 'inline';
-              document.getElementById('subscribe-email').value = '';
-              btn.style.display = 'none';
-            } else {
-              msg.textContent = 'Something went wrong. Try again.';
-              msg.style.display = 'inline';
-              btn.textContent = 'Subscribe';
-              btn.disabled = false;
-            }
-          } catch (e) {
-            msg.textContent = 'Something went wrong. Try again.';
-            msg.style.display = 'inline';
-            btn.textContent = 'Subscribe';
-            btn.disabled = false;
-          }
-        });
-      </script>
+      <NewsletterSignup idPrefix="site-subscribe" />
     </div>
   </section>
 

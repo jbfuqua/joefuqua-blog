@@ -1,0 +1,142 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import BeehiivSignup from '../components/BeehiivSignup.astro';
+
+interface Props {
+  title: string;
+  date: string;
+  thesis?: string;
+  issue?: number;
+  source?: string;
+  currentPath?: string;
+}
+
+const { title, date, thesis, issue, source, currentPath } = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={thesis} currentPath={currentPath}>
+  <article>
+    <div class="article-header">
+      <div class="article-eyebrow">Algorithm &amp; Blues</div>
+      <h1 class="article-title">{title}</h1>
+      {thesis && <p class="anb-thesis">{thesis}</p>}
+
+      <div class="anb-meta-block">
+        <div class="anb-meta-item">
+          <span class="anb-meta-label">Issue</span>
+          <span class="anb-meta-value">#{issue ?? '—'}</span>
+        </div>
+        <div class="anb-meta-item">
+          <span class="anb-meta-label">Published</span>
+          <span class="anb-meta-value">{formattedDate}</span>
+        </div>
+        <div class="anb-meta-item">
+          <span class="anb-meta-label">Series</span>
+          <span class="anb-meta-value">Weekly publication</span>
+        </div>
+        {source && (
+          <div class="anb-meta-item">
+            <span class="anb-meta-label">Source</span>
+            <span class="anb-meta-value">{source === 'linkedin' ? 'Originally on LinkedIn' : 'Original'}</span>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    <div class="anb-subscribe-wrap">
+      <BeehiivSignup
+        idPrefix={`anb-issue-${issue ?? 'latest'}`}
+        title="Get the next issue in your inbox"
+        blurb="Algorithm & Blues publishes one clear argument per week on AI research, governance, and the long arc."
+        eyebrow="Subscribe"
+      />
+    </div>
+
+    <div class="anb-links">
+      <a href="/algorithm-and-blues" class="anb-link">← Publication Home</a>
+      <a href="/algorithm-and-blues/archive" class="anb-link">Browse Archive</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .anb-thesis {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    max-width: 60ch;
+    margin-top: 1.25rem;
+  }
+
+  .anb-meta-block {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem 1rem;
+    max-width: var(--article-width);
+    margin: 1.5rem auto 0;
+    padding: 1rem clamp(1.5rem, 5vw, 5rem);
+    border-top: 1px solid var(--paper-rule);
+    border-bottom: 1px solid var(--paper-rule);
+  }
+
+  .anb-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .anb-meta-label,
+  .anb-link {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .anb-meta-label {
+    color: var(--ink-light);
+  }
+
+  .anb-meta-value {
+    color: var(--ink);
+  }
+
+  .anb-subscribe-wrap {
+    max-width: var(--article-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 5rem) 2.5rem;
+  }
+
+  .anb-links {
+    max-width: var(--article-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 5rem) 3rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .anb-link {
+    color: var(--ink-light);
+  }
+
+  @media (max-width: 720px) {
+    .anb-meta-block {
+      grid-template-columns: 1fr;
+    }
+
+    .anb-links {
+      flex-direction: column;
+    }
+  }
+</style>
