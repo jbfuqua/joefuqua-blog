@@ -18,6 +18,29 @@ const {
 
 const anb = await getCollection('anb');
 const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).length;
+
+const sharedNavLinks = [
+  { href: 'https://joefuqua.com', label: 'Home', key: 'home' },
+  { href: 'https://joefuqua.blog', label: 'Writing', key: 'writing' },
+  { href: 'https://joefuqua.art', label: 'Art', key: 'art' },
+  { href: 'https://joefuqua.com/about', label: 'About', key: 'about' },
+  { href: 'https://joefuqua.blog/algorithm-and-blues#subscribe', label: 'Subscribe', key: 'subscribe' },
+];
+
+const socialLinks = [
+  { href: 'https://linkedin.com/in/joefuqua', label: 'LinkedIn' },
+  { href: 'https://instagram.com/a.nod.tothe.odd', label: 'Instagram' },
+];
+
+const sharedActiveKey = currentPath === '/'
+  ? 'writing'
+  : currentPath === '/about'
+    ? 'about'
+    : currentPath.startsWith('/algorithm-and-blues')
+      ? 'subscribe'
+      : currentPath.startsWith('/writing')
+        ? 'writing'
+        : '';
 ---
 
 <!DOCTYPE html>
@@ -31,6 +54,31 @@ const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).lengt
   <link rel="sitemap" href="/sitemap-index.xml" />
 </head>
 <body>
+  <div class="site-shell">
+    <header class="ecosystem-bar">
+      <div class="ecosystem-inner">
+        <a href="https://joefuqua.com" class="ecosystem-brand">Joe Fuqua Ecosystem</a>
+        <button
+          class="ecosystem-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="ecosystem-nav"
+        >
+          Menu
+        </button>
+        <nav id="ecosystem-nav" class="ecosystem-nav" aria-label="Cross-site">
+          {sharedNavLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={['ecosystem-link', link.key === 'subscribe' && 'ecosystem-link-subscribe']}
+              aria-current={link.key === sharedActiveKey ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
 
   <header class="masthead">
     <div class="masthead-top">
@@ -70,16 +118,35 @@ const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).lengt
     </div>
   </section>
 
-  <footer>
-    <div class="footer-left">Joe <span>Fuqua</span> · joefuqua.blog</div>
-    <div class="footer-links">
-      <a href="https://linkedin.com/in/joefuqua" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="/algorithm-and-blues">Algorithm &amp; Blues</a>
-      <a href="https://contemplations.ai" target="_blank" rel="noopener">contemplations.ai</a>
+  <footer class="site-footer">
+    <div class="site-footer-title">
+      <strong>Joe Fuqua</strong>
+      <span>Writing • Art • Essays on AI</span>
+    </div>
+    <div class="site-footer-links">
+      <a href="https://joefuqua.com">joefuqua.com</a>
+      <a href="https://joefuqua.blog">joefuqua.blog</a>
+      <a href="https://joefuqua.art">joefuqua.art</a>
       <a href="/rss.xml">RSS</a>
     </div>
-    <div class="footer-copy">© 2026 Joe Fuqua · Charlotte, NC · Enterprise AI Governance &amp; Architecture · 40 years in technology</div>
+    <div class="site-footer-social">
+      {socialLinks.map((link) => (
+        <a href={link.href} target="_blank" rel="noopener">{link.label}</a>
+      ))}
+    </div>
   </footer>
+  </div>
+
+  <script is:inline>
+    const ecosystemToggle = document.querySelector('.ecosystem-toggle');
+    const ecosystemNav = document.querySelector('#ecosystem-nav');
+
+    ecosystemToggle?.addEventListener('click', () => {
+      const isExpanded = ecosystemToggle.getAttribute('aria-expanded') === 'true';
+      ecosystemToggle.setAttribute('aria-expanded', String(!isExpanded));
+      ecosystemNav?.classList.toggle('is-open', !isExpanded);
+    });
+  </script>
 
 </body>
 </html>

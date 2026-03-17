@@ -57,6 +57,53 @@ function articleUrl(post: any) {
     </aside>
   </section>
 
+  <div class="section-divider">
+    <div class="section-divider-inner">
+      <span class="section-title">Start Here</span>
+      <span class="section-rule"></span>
+      <a href="/writing" class="section-link">Newest Essays →</a>
+    </div>
+  </div>
+
+  <section class="start-here-grid">
+    <article class="start-here-card start-here-card-primary">
+      <div class="card-tag">New Readers</div>
+      <h2 class="card-title">Start with the long-view writing, then decide where to go deeper.</h2>
+      <p class="card-excerpt">
+        If you are new here, begin with the essays on governance, futures, and technology’s social effects. Then follow the weekly publication if you want the sharper, more regular argument.
+      </p>
+      <div class="start-here-actions">
+        <a href="/writing" class="start-here-button start-here-button-primary">Read the Essays</a>
+        <a href="/algorithm-and-blues" class="start-here-button">Explore Algorithm &amp; Blues</a>
+      </div>
+    </article>
+
+    <article class="start-here-card">
+      <div class="card-tag">Across the Sites</div>
+      <h2 class="card-title">The wider Joe Fuqua ecosystem.</h2>
+      <p class="card-excerpt">
+        joefuqua.blog is the writing home. joefuqua.com is the front door. joefuqua.art holds the visual work.
+      </p>
+      <div class="start-here-links">
+        <a href="https://joefuqua.com" class="start-here-link">Visit joefuqua.com</a>
+        <a href="https://joefuqua.art" class="start-here-link">Visit joefuqua.art</a>
+        <a href="https://joefuqua.com/about" class="start-here-link">Read the About Page</a>
+      </div>
+    </article>
+
+    <article class="start-here-card start-here-card-accent">
+      <div class="card-tag">Subscribe</div>
+      <h2 class="card-title">Get one clear argument per week.</h2>
+      <p class="card-excerpt">
+        Algorithm &amp; Blues turns AI research and governance into decisions executives can actually make, without hype or filler.
+      </p>
+      <div class="start-here-actions">
+        <a href="/algorithm-and-blues#subscribe" class="start-here-button start-here-button-primary">Subscribe Now</a>
+        <a href="/algorithm-and-blues/archive" class="start-here-button">Browse the Archive</a>
+      </div>
+    </article>
+  </section>
+
   <!-- FEATURED ARTICLES -->
   <div class="section-divider">
     <div class="section-divider-inner">
@@ -269,6 +316,92 @@ function articleUrl(post: any) {
     line-height: 1.5;
   }
 
+  .start-here-grid {
+    padding: 1.5rem clamp(1.5rem, 5vw, 4rem) 0;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .start-here-card {
+    border: 1px solid var(--paper-rule);
+    background: rgba(255, 255, 255, 0.35);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .start-here-card-primary {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(228, 231, 238, 0.95));
+  }
+
+  .start-here-card-accent {
+    background: linear-gradient(180deg, rgba(20, 24, 32, 0.95), rgba(46, 52, 68, 0.96));
+  }
+
+  .start-here-card-accent .card-tag,
+  .start-here-card-accent .card-title {
+    color: var(--paper);
+  }
+
+  .start-here-card-accent .card-excerpt {
+    color: rgba(238, 240, 244, 0.82);
+  }
+
+  .start-here-actions,
+  .start-here-links {
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+
+  .start-here-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .start-here-button,
+  .start-here-link {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .start-here-button {
+    border: 1px solid var(--paper-rule);
+    color: var(--ink-mid);
+    padding: 0.75rem 0.95rem;
+  }
+
+  .start-here-button-primary {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .start-here-card-accent .start-here-button {
+    border-color: rgba(255, 255, 255, 0.22);
+    color: var(--paper);
+  }
+
+  .start-here-card-accent .start-here-button-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .start-here-links {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .start-here-link {
+    color: var(--ink-mid);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--paper-rule);
+  }
+
   /* ── FEATURED GRID ── */
   .featured-grid {
     padding: 0 clamp(1.5rem, 5vw, 4rem);
@@ -452,6 +585,7 @@ function articleUrl(post: any) {
     .hero { grid-template-columns: 1fr; }
     .hero-lede { padding-right: 0; border-bottom: 1px solid var(--paper-rule); }
     .hero-sidebar { border-left: none; padding-left: 0; padding-top: 1.5rem; }
+    .start-here-grid { grid-template-columns: 1fr; }
     .featured-grid { grid-template-columns: 1fr; }
     .featured-card { border-right: none; border-bottom: 1px solid var(--paper-rule); padding: 1.5rem 0; }
     .featured-card:nth-child(2), .featured-card:last-child { padding-left: 0; }
