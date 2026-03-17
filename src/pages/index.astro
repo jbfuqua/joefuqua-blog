@@ -6,10 +6,6 @@ import { getCollection } from 'astro:content';
 const articles = await getCollection('articles');
 const anb = await getCollection('anb');
 
-const allPosts = [...articles, ...anb].sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-
 const recentArticles = articles
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
@@ -68,37 +64,37 @@ function articleUrl(post: any) {
   <section class="start-here-grid">
     <article class="start-here-card start-here-card-primary">
       <div class="card-tag">New Readers</div>
-      <h2 class="card-title">Start with the long-view writing, then decide where to go deeper.</h2>
+      <h2 class="card-title">Start with the essays.</h2>
       <p class="card-excerpt">
-        If you are new here, begin with the essays on governance, futures, and technology’s social effects. Then follow the weekly publication if you want the sharper, more regular argument.
+        Begin with the longer-form writing on governance, futures, and technology’s social effects.
       </p>
       <div class="start-here-actions">
-        <a href="/writing" class="start-here-button start-here-button-primary">Read the Essays</a>
-        <a href="/algorithm-and-blues" class="start-here-button">Explore Algorithm &amp; Blues</a>
+        <a href="/writing" class="start-here-button start-here-button-primary">Read Writing</a>
+        <a href="/writing/category/governance" class="start-here-button">Governance</a>
       </div>
     </article>
 
     <article class="start-here-card">
-      <div class="card-tag">Across the Sites</div>
-      <h2 class="card-title">The wider Joe Fuqua ecosystem.</h2>
+      <div class="card-tag">Then</div>
+      <h2 class="card-title">Go narrower or broader.</h2>
       <p class="card-excerpt">
-        joefuqua.blog is the writing home. joefuqua.com is the front door. joefuqua.art holds the visual work.
+        Algorithm &amp; Blues is the weekly publication. The main site and art site round out the rest of the work.
       </p>
       <div class="start-here-links">
-        <a href="https://joefuqua.com" class="start-here-link">Visit joefuqua.com</a>
-        <a href="https://joefuqua.art" class="start-here-link">Visit joefuqua.art</a>
-        <a href="https://joefuqua.com/about" class="start-here-link">Read the About Page</a>
+        <a href="/algorithm-and-blues" class="start-here-link">Algorithm &amp; Blues</a>
+        <a href="https://joefuqua.com" class="start-here-link">joefuqua.com</a>
+        <a href="https://joefuqua.art" class="start-here-link">joefuqua.art</a>
       </div>
     </article>
 
     <article class="start-here-card start-here-card-accent">
       <div class="card-tag">Subscribe</div>
-      <h2 class="card-title">Get one clear argument per week.</h2>
+      <h2 class="card-title">One issue each week.</h2>
       <p class="card-excerpt">
-        Algorithm &amp; Blues turns AI research and governance into decisions executives can actually make, without hype or filler.
+        Algorithm &amp; Blues is a concise weekly note on AI, governance, and the long arc.
       </p>
       <div class="start-here-actions">
-        <a href="/algorithm-and-blues#subscribe" class="start-here-button start-here-button-primary">Subscribe Now</a>
+        <a href="/algorithm-and-blues#subscribe" class="start-here-button start-here-button-primary">Subscribe</a>
         <a href="/algorithm-and-blues/archive" class="start-here-button">Browse the Archive</a>
       </div>
     </article>

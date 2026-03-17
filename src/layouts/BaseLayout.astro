@@ -8,12 +8,14 @@ interface Props {
   title?: string;
   description?: string;
   currentPath?: string;
+  showGlobalSignup?: boolean;
 }
 
 const { 
   title = 'Joe Fuqua', 
   description = 'Joe Fuqua has been watching humans panic about intelligent machines since 1988. He writes about the longer arc — why the panic is usually wrong, how governance becomes the actual competitive advantage, and what it takes to build organizations that are ready for what comes next.',
-  currentPath = ''
+  currentPath = '',
+  showGlobalSignup = !currentPath.startsWith('/writing/') && !currentPath.startsWith('/algorithm-and-blues/')
 } = Astro.props;
 
 const anb = await getCollection('anb');
@@ -57,7 +59,7 @@ const sharedActiveKey = currentPath === '/'
   <div class="site-shell">
     <header class="ecosystem-bar">
       <div class="ecosystem-inner">
-        <a href="https://joefuqua.com" class="ecosystem-brand">Joe Fuqua Ecosystem</a>
+        <a href="https://joefuqua.com" class="ecosystem-brand">Joe Fuqua</a>
         <button
           class="ecosystem-toggle"
           type="button"
@@ -107,16 +109,18 @@ const sharedActiveKey = currentPath === '/'
   </main>
 
 
-  <section class="newsletter-band">
-    <div>
-      <div class="newsletter-eyebrow">Algorithm &amp; Blues · Weekly</div>
-      <div class="newsletter-headline">AI research translated into decisions<br/><em>executives can actually make.</em></div>
-      <div class="newsletter-sub">{publishedAnbCount} issues. No hype. No filler. One clear argument per week.</div>
-    </div>
-    <div>
-      <NewsletterSignup idPrefix="site-subscribe" />
-    </div>
-  </section>
+  {showGlobalSignup && (
+    <section class="newsletter-band">
+      <div>
+        <div class="newsletter-eyebrow">Algorithm &amp; Blues</div>
+        <div class="newsletter-headline">Weekly notes on AI, governance, and the long arc.</div>
+        <div class="newsletter-sub">{publishedAnbCount} issues so far.</div>
+      </div>
+      <div>
+        <NewsletterSignup idPrefix="site-subscribe" />
+      </div>
+    </section>
+  )}
 
   <footer class="site-footer">
     <div class="site-footer-title">
