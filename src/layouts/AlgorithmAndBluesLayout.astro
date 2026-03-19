@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import BeehiivSignup from '../components/BeehiivSignup.astro';
+import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
@@ -18,6 +19,13 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
 });
+
+const allIssues = (await getCollection('anb'))
+  .sort((a, b) => (a.data.issue ?? 0) - (b.data.issue ?? 0));
+
+const currentIndex = allIssues.findIndex(i => i.data.issue === issue);
+const prevIssue = currentIndex > 0 ? allIssues[currentIndex - 1] : null;
+const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex + 1] : null;
 ---
 
 <BaseLayout title={title} description={thesis} currentPath={currentPath}>
@@ -61,6 +69,23 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
         eyebrow="Subscribe"
       />
     </div>
+
+    {(prevIssue || nextIssue) && (
+      <div class="anb-prev-next">
+        {prevIssue ? (
+          <a href={`/algorithm-and-blues/${prevIssue.data.slug || prevIssue.id}`} class="anb-pn-link">
+            <span class="anb-pn-label">← Previous Issue</span>
+            <span class="anb-pn-title">#{prevIssue.data.issue} · {prevIssue.data.title}</span>
+          </a>
+        ) : <span />}
+        {nextIssue ? (
+          <a href={`/algorithm-and-blues/${nextIssue.data.slug || nextIssue.id}`} class="anb-pn-link anb-pn-next">
+            <span class="anb-pn-label">Next Issue →</span>
+            <span class="anb-pn-title">#{nextIssue.data.issue} · {nextIssue.data.title}</span>
+          </a>
+        ) : <span />}
+      </div>
+    )}
 
     <div class="anb-links">
       <a href="/algorithm-and-blues" class="anb-link">← Publication Home</a>
@@ -130,6 +155,49 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
     color: var(--ink-light);
   }
 
+  .anb-prev-next {
+    max-width: var(--article-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 5rem) 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    border-top: 1px solid var(--paper-rule);
+    padding-top: 1.5rem;
+  }
+
+  .anb-pn-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-decoration: none;
+  }
+
+  .anb-pn-next {
+    text-align: right;
+  }
+
+  .anb-pn-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .anb-pn-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+    transition: color 0.15s;
+  }
+
+  .anb-pn-link:hover .anb-pn-title {
+    color: var(--accent);
+  }
+
   @media (max-width: 720px) {
     .anb-meta-block {
       grid-template-columns: 1fr;
@@ -137,6 +205,14 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 
     .anb-links {
       flex-direction: column;
+    }
+
+    .anb-prev-next {
+      grid-template-columns: 1fr;
+    }
+
+    .anb-pn-next {
+      text-align: left;
     }
   }
 </style>
