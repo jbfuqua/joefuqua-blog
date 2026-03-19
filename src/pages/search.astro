@@ -49,14 +49,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <script is:inline>
     (function() {
-      var pagefindPath = '/pagefind/pagefind-ui.js';
-      import(pagefindPath).then(function(module) {
-        new module.PagefindUI({
+      var script = document.createElement('script');
+      script.src = '/pagefind/pagefind-ui.js';
+      script.onload = function() {
+        new window.PagefindUI({
           element: '#search',
           showSubResults: true,
           showImages: false,
         });
-      });
+      };
+      document.head.appendChild(script);
     })();
   </script>
 </BaseLayout>
