@@ -24,7 +24,7 @@ function formatDate(d: string) {
         AI research translated into decisions executives can actually make. One clear argument per issue, published weekly.
       </p>
       <div class="anb-landing-links">
-        <a href={latestIssue ? `/algorithm-and-blues/${latestIssue.data.slug || latestIssue.slug}` : '/algorithm-and-blues/archive'} class="anb-landing-primary">
+        <a href={latestIssue ? `/algorithm-and-blues/${latestIssue.data.slug || latestIssue.id}` : '/algorithm-and-blues/archive'} class="anb-landing-primary">
           Read Latest Issue
         </a>
         <a href="/algorithm-and-blues/archive" class="anb-landing-secondary">Browse Archive</a>
@@ -56,7 +56,7 @@ function formatDate(d: string) {
           <div>{formatDate(latestIssue.data.date)}</div>
         </div>
         <div class="anb-feature-body">
-          <a href={`/algorithm-and-blues/${latestIssue.data.slug || latestIssue.slug}`}>
+          <a href={`/algorithm-and-blues/${latestIssue.data.slug || latestIssue.id}`}>
             <h2 class="card-title">{latestIssue.data.title}</h2>
           </a>
           {latestIssue.data.excerpt && (
@@ -83,7 +83,7 @@ function formatDate(d: string) {
           <div style="margin-top: 0.25rem;">{formatDate(post.data.date)}</div>
         </div>
         <div class="card-body">
-          <a href={`/algorithm-and-blues/${post.data.slug || post.slug}`}>
+          <a href={`/algorithm-and-blues/${post.data.slug || post.id}`}>
             <div class="card-title">{post.data.title}</div>
           </a>
           {post.data.excerpt && (

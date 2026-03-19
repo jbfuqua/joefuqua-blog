@@ -20,7 +20,7 @@ function formatDate(d: string) {
 
 function articleUrl(post: any) {
   const col = post.collection;
-  const slug = post.data.slug || post.slug;
+  const slug = post.data.slug || post.id;
   return col === 'anb' ? `/algorithm-and-blues/${slug}` : `/writing/${slug}`;
 }
 ---

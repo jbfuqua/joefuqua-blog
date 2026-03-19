@@ -14,7 +14,7 @@ export async function GET(context) {
     site: context.site,
     items: publishedIssues.map((issue) => ({
       title: issue.data.title,
-      link: `/algorithm-and-blues/${issue.data.slug || issue.slug}/`,
+      link: `/algorithm-and-blues/${issue.data.slug || issue.id}/`,
       pubDate: issue.data.date,
       description: issue.data.excerpt,
     })),

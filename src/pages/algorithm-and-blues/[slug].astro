@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import AlgorithmAndBluesLayout from '../../layouts/AlgorithmAndBluesLayout.astro';
 
 export async function getStaticPaths() {
   const anb = await getCollection('anb');
   return anb.map(post => ({
-    params: { slug: post.data.slug || post.slug },
+    params: { slug: post.data.slug || post.id },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <AlgorithmAndBluesLayout
@@ -20,7 +20,7 @@ const { Content } = await post.render();
   thesis={post.data.excerpt}
   issue={post.data.issue}
   source={post.data.source}
-  currentPath={`/algorithm-and-blues/${post.data.slug || post.slug}`}
+  currentPath={`/algorithm-and-blues/${post.data.slug || post.id}`}
 >
   <Content />
 </AlgorithmAndBluesLayout>

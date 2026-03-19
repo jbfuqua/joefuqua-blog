@@ -39,7 +39,7 @@ function formatDate(d: string) {
           <div style="margin-top: 0.25rem;">{formatDate(post.data.date)}</div>
         </div>
         <div class="card-body">
-          <a href={`/algorithm-and-blues/${post.data.slug || post.slug}`}>
+          <a href={`/algorithm-and-blues/${post.data.slug || post.id}`}>
             <div class="card-title">{post.data.title}</div>
           </a>
           {post.data.excerpt && (

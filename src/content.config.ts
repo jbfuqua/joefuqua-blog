@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 // Schema shared by both collections
 const baseSchema = z.object({
@@ -13,13 +14,13 @@ const baseSchema = z.object({
 
 // Long-form LinkedIn articles + original essays
 const articles = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
   schema: baseSchema,
 });
 
 // Algorithm & Blues weekly issues
 const anb = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/anb' }),
   schema: baseSchema.extend({
     issue: z.number().optional(),          // issue number e.g. 43
   }),
