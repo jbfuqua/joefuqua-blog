@@ -99,12 +99,13 @@ const sharedActiveKey = currentPath === '/'
       <a href="/algorithm-and-blues" class={currentPath.startsWith('/algorithm-and-blues') ? 'active' : ''}>Algorithm &amp; Blues</a>
       <a href="/about">About</a>
       <span class="nav-right">
+        <a href="/search" class={currentPath === '/search' ? 'active' : ''}>Search</a>
         <a href="/algorithm-and-blues#subscribe" class="nav-subscribe">Subscribe</a>
       </span>
     </nav>
   </header>
 
-  <main class="page-content">
+  <main class="page-content" data-pagefind-body>
     <slot />
   </main>
 
