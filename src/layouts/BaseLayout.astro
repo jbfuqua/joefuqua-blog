@@ -54,6 +54,11 @@ const sharedActiveKey = currentPath === '/'
   <title>{title === 'Joe Fuqua' ? title : `${title} — Joe Fuqua`}</title>
   <link rel="canonical" href={`https://joefuqua.blog${currentPath}`} />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta property="og:title" content="Joe Fuqua" />
+  <meta property="og:description" content="Writing, art, and a long view of intelligent machines. Panic is optional. Preparation isn't." />
+  <meta property="og:image" content="https://joefuqua.blog/og-default.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 </head>
 <body>
   <div class="site-shell">
