@@ -9,13 +9,15 @@ interface Props {
   description?: string;
   currentPath?: string;
   showGlobalSignup?: boolean;
+  ogImage?: string;
 }
 
-const { 
-  title = 'Joe Fuqua', 
+const {
+  title = 'Joe Fuqua',
   description = 'Joe Fuqua has been watching humans panic about intelligent machines since 1988. He writes about the longer arc — why the panic is usually wrong, how governance becomes the actual competitive advantage, and what it takes to build organizations that are ready for what comes next.',
   currentPath = '',
-  showGlobalSignup = !currentPath.startsWith('/writing/') && !currentPath.startsWith('/algorithm-and-blues/')
+  showGlobalSignup = !currentPath.startsWith('/writing/') && !currentPath.startsWith('/algorithm-and-blues/'),
+  ogImage,
 } = Astro.props;
 
 const anb = await getCollection('anb');
@@ -56,7 +58,7 @@ const sharedActiveKey = currentPath === '/'
   <link rel="sitemap" href="/sitemap-index.xml" />
   <meta property="og:title" content="Joe Fuqua" />
   <meta property="og:description" content="Writing, art, and a long view of intelligent machines. Panic is optional. Preparation isn't." />
-  <meta property="og:image" content="https://joefuqua.blog/og-default.png" />
+  <meta property="og:image" content={ogImage ?? "https://joefuqua.blog/og-default.png"} />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 </head>
