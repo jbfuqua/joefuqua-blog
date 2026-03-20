@@ -14,6 +14,10 @@ interface Props {
 
 const { title, date, thesis, issue, source, currentPath } = Astro.props;
 
+const slug = currentPath?.replace('/algorithm-and-blues/', '') || '';
+const perPostOgImage = slug ? `https://joefuqua.blog/algorithm-and-blues/og/${slug}.png` : null;
+const ogImage = perPostOgImage ?? 'https://joefuqua.blog/og-algorithm-and-blues.png';
+
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
@@ -28,7 +32,7 @@ const prevIssue = currentIndex > 0 ? allIssues[currentIndex - 1] : null;
 const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex + 1] : null;
 ---
 
-<BaseLayout title={title} description={thesis} currentPath={currentPath} ogImage="https://joefuqua.blog/og-algorithm-and-blues.png">
+<BaseLayout title={title} description={thesis} currentPath={currentPath} ogImage={ogImage}>
   <article>
     <div class="article-header">
       <div class="article-eyebrow">Algorithm &amp; Blues</div>
