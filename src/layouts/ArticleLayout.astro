@@ -14,6 +14,9 @@ interface Props {
 
 const { title, date, category, excerpt, issue, source, currentPath } = Astro.props;
 
+const slug = currentPath?.replace('/writing/', '') || '';
+const ogImage = slug ? `https://joefuqua.blog/writing/og/${slug}.png` : undefined;
+
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
@@ -38,7 +41,7 @@ const related = articles
   .slice(0, 3);
 ---
 
-<BaseLayout title={title} description={excerpt} currentPath={currentPath}>
+<BaseLayout title={title} description={excerpt} currentPath={currentPath} ogImage={ogImage}>
   <article>
     <div class="article-header">
       <div class="article-eyebrow">{eyebrow}</div>

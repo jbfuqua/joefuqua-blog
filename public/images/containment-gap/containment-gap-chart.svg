@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 420" role="img" aria-labelledby="cg-title cg-desc">
+  <title id="cg-title">The containment gap</title>
+  <desc id="cg-desc">Line chart showing model capability rising faster than containment infrastructure over time, with the widening gap between them shaded.</desc>
+  <style>
+    :root { --tx: #1a1a1a; --ts: #666; --bd: rgba(0,0,0,0.12); --gp: rgba(120,100,160,0.1); --cap: #534AB7; }
+    @media (prefers-color-scheme: dark) { :root { --tx: #e0dfd8; --ts: #9c9a92; --bd: rgba(255,255,255,0.1); --gp: rgba(120,100,180,0.12); --cap: #AFA9EC; } }
+    .th { font: 500 14px -apple-system, 'Segoe UI', sans-serif; fill: var(--tx); }
+    .ts { font: 400 12px -apple-system, 'Segoe UI', sans-serif; fill: var(--ts); }
+  </style>
+
+  <line x1="70" y1="360" x2="640" y2="360" stroke="var(--bd)" stroke-width="0.5"/>
+  <line x1="70" y1="360" x2="70" y2="40" stroke="var(--bd)" stroke-width="0.5"/>
+  <line x1="70" y1="280" x2="640" y2="280" stroke="var(--bd)" stroke-width="0.5"/>
+  <line x1="70" y1="200" x2="640" y2="200" stroke="var(--bd)" stroke-width="0.5"/>
+  <line x1="70" y1="120" x2="640" y2="120" stroke="var(--bd)" stroke-width="0.5"/>
+
+  <path d="M90,340 C200,330 300,310 390,270 C470,235 530,175 580,120 C610,90 630,78 640,72 L640,310 C620,318 590,328 560,335 C490,350 400,355 300,358 C200,360 130,361 90,362 Z" fill="var(--gp)"/>
+
+  <path d="M90,340 C200,330 300,310 390,270 C470,235 530,175 580,120 C610,90 630,78 640,72" fill="none" stroke="var(--cap)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <path d="M90,362 C130,361 200,360 300,358 C400,355 490,350 560,335 C590,328 620,318 640,310" fill="none" stroke="var(--ts)" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round"/>
+
+  <circle cx="580" cy="120" r="4" fill="var(--cap)"/>
+  <line x1="542" y1="108" x2="576" y2="118" stroke="var(--bd)" stroke-width="0.5" stroke-dasharray="3 3"/>
+  <text class="ts" x="540" y="106" text-anchor="end">Glasswing decision</text>
+
+  <text class="th" x="400" y="85" fill="var(--cap)">Model capability</text>
+  <text class="ts" x="510" y="325">Containment infrastructure</text>
+  <text class="ts" x="340" y="260" text-anchor="middle" opacity="0.5">the deployment problem</text>
+  <text class="ts" x="600" y="385" text-anchor="middle">Time</text>
+</svg>

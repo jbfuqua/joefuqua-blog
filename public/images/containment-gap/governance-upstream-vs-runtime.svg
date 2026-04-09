@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 680 460" role="img" aria-labelledby="gc-title gc-desc">
+  <title id="gc-title">Where governance actually holds</title>
+  <desc id="gc-desc">Two-column diagram contrasting upstream paper governance with operational runtime constraints, connected by arrows showing the gap between documentation and enforcement.</desc>
+  <style>
+    :root { --tx: #1a1a1a; --ts: #666; --bd: rgba(0,0,0,0.12); --gf: #F1EFE8; --gs: #B4B2A9; --pf: #EEEDFE; --ps: #AFA9EC; --pt: #534AB7; --gt: #5F5E5A; --arr: #888; }
+    @media (prefers-color-scheme: dark) { :root { --tx: #e0dfd8; --ts: #9c9a92; --bd: rgba(255,255,255,0.1); --gf: #2C2C2A; --gs: #5F5E5A; --pf: #26215C; --ps: #534AB7; --pt: #CECBF6; --gt: #D3D1C7; --arr: #9c9a92; } }
+    .th { font: 500 14px -apple-system, 'Segoe UI', sans-serif; }
+    .ts { font: 400 12px -apple-system, 'Segoe UI', sans-serif; }
+    .arr-line { stroke: var(--arr); stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="var(--arr)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <line x1="340" y1="30" x2="340" y2="380" stroke="var(--bd)" stroke-width="0.5" stroke-dasharray="6 4"/>
+
+  <text class="th" x="170" y="28" text-anchor="middle" fill="var(--ts)">Upstream governance</text>
+  <text class="th" x="510" y="28" text-anchor="middle" fill="var(--pt)">Operational constraint</text>
+
+  <rect x="40" y="50" width="260" height="56" rx="8" fill="var(--gf)" stroke="var(--gs)" stroke-width="0.5"/>
+  <text class="th" x="170" y="70" text-anchor="middle" dominant-baseline="central" fill="var(--gt)">Policies and principles</text>
+  <text class="ts" x="170" y="90" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">what should happen</text>
+
+  <rect x="40" y="126" width="260" height="56" rx="8" fill="var(--gf)" stroke="var(--gs)" stroke-width="0.5"/>
+  <text class="th" x="170" y="146" text-anchor="middle" dominant-baseline="central" fill="var(--gt)">Review boards</text>
+  <text class="ts" x="170" y="166" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">checked before deployment</text>
+
+  <rect x="40" y="202" width="260" height="56" rx="8" fill="var(--gf)" stroke="var(--gs)" stroke-width="0.5"/>
+  <text class="th" x="170" y="222" text-anchor="middle" dominant-baseline="central" fill="var(--gt)">Periodic audits</text>
+  <text class="ts" x="170" y="242" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">examined after the fact</text>
+
+  <rect x="40" y="278" width="260" height="56" rx="8" fill="var(--gf)" stroke="var(--gs)" stroke-width="0.5"/>
+  <text class="th" x="170" y="298" text-anchor="middle" dominant-baseline="central" fill="var(--gt)">Acceptable-use language</text>
+  <text class="ts" x="170" y="318" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">told not to do it</text>
+
+  <rect x="380" y="50" width="260" height="56" rx="8" fill="var(--pf)" stroke="var(--ps)" stroke-width="0.5"/>
+  <text class="th" x="510" y="70" text-anchor="middle" dominant-baseline="central" fill="var(--pt)">Mediated tool access</text>
+  <text class="ts" x="510" y="90" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">no raw authority</text>
+
+  <rect x="380" y="126" width="260" height="56" rx="8" fill="var(--pf)" stroke="var(--ps)" stroke-width="0.5"/>
+  <text class="th" x="510" y="146" text-anchor="middle" dominant-baseline="central" fill="var(--pt)">Scoped identity</text>
+  <text class="ts" x="510" y="166" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">bounded before it runs</text>
+
+  <rect x="380" y="202" width="260" height="56" rx="8" fill="var(--pf)" stroke="var(--ps)" stroke-width="0.5"/>
+  <text class="th" x="510" y="222" text-anchor="middle" dominant-baseline="central" fill="var(--pt)">Durable logs</text>
+  <text class="ts" x="510" y="242" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">record survives the event</text>
+
+  <rect x="380" y="278" width="260" height="56" rx="8" fill="var(--pf)" stroke="var(--ps)" stroke-width="0.5"/>
+  <text class="th" x="510" y="298" text-anchor="middle" dominant-baseline="central" fill="var(--pt)">Kill conditions</text>
+  <text class="ts" x="510" y="318" text-anchor="middle" dominant-baseline="central" fill="var(--ts)">something real happens</text>
+
+  <line x1="300" y1="78" x2="378" y2="78" class="arr-line" marker-end="url(#arrow)"/>
+  <line x1="300" y1="154" x2="378" y2="154" class="arr-line" marker-end="url(#arrow)"/>
+  <line x1="300" y1="230" x2="378" y2="230" class="arr-line" marker-end="url(#arrow)"/>
+  <line x1="300" y1="306" x2="378" y2="306" class="arr-line" marker-end="url(#arrow)"/>
+
+  <text class="ts" x="340" y="390" text-anchor="middle" fill="var(--ts)">An action can be disallowed on paper,</text>
+  <text class="ts" x="340" y="408" text-anchor="middle" fill="var(--ts)">or it can be difficult, visible, and stoppable in practice.</text>
+</svg>
