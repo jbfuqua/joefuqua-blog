@@ -104,7 +104,7 @@ The fourth is **options**: small, deliberate bets on emerging capabilities such 
 
 A failed AI pilot can be valuable if it teaches the organization something reusable. It is waste when it produces a demo, a slide deck, and no institutional memory.
 
-![The AI Portfolio](/images/articles/ai-fomo-portfolio-categories.png)
+<img src="/images/articles/ai-fomo-portfolio-categories.png" alt="The AI Portfolio — four categories: harvest, redesign, infrastructure, and options" style="max-width: 100%; margin: 2rem 0;" />
 
 ## Governance as Infrastructure
 
