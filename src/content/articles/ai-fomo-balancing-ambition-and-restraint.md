@@ -94,15 +94,17 @@ The more reasoned path through AI is portfolio management. Blanket enthusiasm mi
 
 Boring, I know. But boring is underrated when the space is full of people using the word "transformational."
 
-A useful AI portfolio has a few different kinds of bets in it. The first is harvest: near-term productivity opportunities where the work is already understood and the downside is manageable. Code assistance, summarization, search, drafting, classification, service desk triage, and basic analytics acceleration belong here. These should be pursued aggressively and measured honestly. The goal is to find what repeats. A demo is not a result.
+A useful AI portfolio has a few different kinds of bets in it. The first is **harvest**: near-term productivity opportunities where the work is already understood and the downside is manageable. Code assistance, summarization, search, drafting, classification, service desk triage, and basic analytics acceleration belong here. These should be pursued aggressively and measured honestly. The goal is to find what repeats. A demo is not a result.
 
-The second is redesign, where AI changes the shape of a workflow rather than speeding up one step inside it. Claims intake, credit analysis, regulatory change management, financial crime investigation, software delivery, risk control testing, customer onboarding, and procurement are closer to this category. These efforts take more patience because the unit of value is not the model or the task. It is the workflow itself.
+The second is **redesign**, where AI changes the shape of a workflow rather than speeding up one step inside it. Claims intake, credit analysis, regulatory change management, financial crime investigation, software delivery, risk control testing, customer onboarding, and procurement are closer to this category. These efforts take more patience because the unit of value is not the model or the task. It is the workflow itself.
 
-The third is infrastructure, meaning the machinery that lets AI scale safely: data products, evaluation frameworks, model gateways, orchestration, monitoring, access management, audit logging, prompt and tool registries, and reusable deployment patterns. This should be funded as enterprise capability, but not as a monument. Let real demand pull it into existence. Infrastructure without demand becomes architecture theater.
+The third is **infrastructure**, meaning the machinery that lets AI scale safely: data products, evaluation frameworks, model gateways, orchestration, monitoring, access management, audit logging, prompt and tool registries, and reusable deployment patterns. This should be funded as enterprise capability, but not as a monument. Let real demand pull it into existence. Infrastructure without demand becomes architecture theater.
 
-The fourth is options: small, deliberate bets on emerging capabilities such as autonomous agents, synthetic data, simulation, multimodal interfaces, and domain-specific model tuning. These areas are moving quickly, but the operating model is still immature. Time-box the work, keep the spend bounded, and design the effort to produce learning rather than just another internal showcase.
+The fourth is **options**: small, deliberate bets on emerging capabilities such as autonomous agents, synthetic data, simulation, multimodal interfaces, and domain-specific model tuning. These areas are moving quickly, but the operating model is still immature. Time-box the work, keep the spend bounded, and design the effort to produce learning rather than just another internal showcase.
 
 A failed AI pilot can be valuable if it teaches the organization something reusable. It is waste when it produces a demo, a slide deck, and no institutional memory.
+
+![The AI Portfolio](/images/articles/ai-fomo-portfolio-categories.png)
 
 ## Governance as Infrastructure
 
