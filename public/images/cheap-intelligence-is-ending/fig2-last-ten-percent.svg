@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" font-family="Georgia, 'Times New Roman', serif">
+  <rect width="820" height="560" fill="#F7F3EA"/>
+
+  <text x="80" y="44" font-size="25" font-weight="bold" fill="#221F1A">The cost of the last 10%</text>
+  <text x="80" y="70" font-size="14.5" font-style="italic" fill="#7A7264">Cumulative cost of automating one task, end to end.</text>
+
+  <!-- plot: x 80..760, y 130..440 -->
+  <g stroke="#7A7264" stroke-opacity="0.16" stroke-width="0.75">
+    <line x1="80" y1="208" x2="760" y2="208"/>
+    <line x1="80" y1="285" x2="760" y2="285"/>
+    <line x1="80" y1="362" x2="760" y2="362"/>
+  </g>
+
+  <!-- expensive tail shading beyond 70% -->
+  <path d="M556,440 L556,326 C600,306 632,286 660,250 C700,200 736,150 760,118 L760,440 Z"
+        fill="#B0502F" fill-opacity="0.15"/>
+
+  <!-- 70% marker -->
+  <line x1="556" y1="130" x2="556" y2="440" stroke="#7A7264" stroke-opacity="0.45" stroke-width="0.9" stroke-dasharray="3 4"/>
+
+  <!-- axes -->
+  <line x1="80" y1="130" x2="80" y2="440" stroke="#221F1A" stroke-width="1.25"/>
+  <line x1="80" y1="440" x2="760" y2="440" stroke="#221F1A" stroke-width="1.25"/>
+
+  <!-- cost curve -->
+  <path d="M80,433 C160,427 220,419 284,407 C350,395 388,386 420,372 C480,350 520,346 556,326 C600,302 632,288 660,250 C702,196 740,150 760,118"
+        fill="none" stroke="#221F1A" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- callout in open upper-left, leader to the bend -->
+  <text x="120" y="178" font-size="14" fill="#B0502F" font-style="italic">
+    <tspan x="120" dy="0">The last 10% of reliability can cost more</tspan>
+    <tspan x="120" dy="19">than the first 70% of automation is worth.</tspan>
+  </text>
+  <line x1="470" y1="206" x2="648" y2="250" stroke="#B0502F" stroke-width="0.9"/>
+
+  <!-- brackets + labels under axis -->
+  <g stroke="#221F1A" stroke-width="1">
+    <line x1="84" y1="454" x2="552" y2="454"/>
+    <line x1="84" y1="450" x2="84" y2="458"/>
+    <line x1="552" y1="450" x2="552" y2="458"/>
+    <line x1="560" y1="454" x2="756" y2="454"/>
+    <line x1="560" y1="450" x2="560" y2="458"/>
+    <line x1="756" y1="450" x2="756" y2="458"/>
+  </g>
+  <text x="318" y="474" font-size="12" fill="#7A7264" text-anchor="middle">first 70%, cheap to automate</text>
+  <text x="658" y="474" font-size="12" fill="#B0502F" text-anchor="middle">where the cost lives</text>
+
+  <!-- x ticks -->
+  <g font-size="11.5" fill="#7A7264" text-anchor="middle">
+    <text x="80" y="496">0%</text>
+    <text x="556" y="496">70%</text>
+    <text x="760" y="496">100%</text>
+  </g>
+
+  <text x="420" y="520" font-size="11.5" letter-spacing="2" fill="#221F1A" text-anchor="middle">SHARE&#160;OF&#160;TASK&#160;AUTOMATED</text>
+  <text x="30" y="285" font-size="11.5" letter-spacing="2" fill="#221F1A" text-anchor="middle" transform="rotate(-90 30 285)">CUMULATIVE&#160;COST</text>
+</svg>
