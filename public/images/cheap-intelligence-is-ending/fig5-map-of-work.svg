@@ -1,50 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 820" font-family="Georgia, 'Times New Roman', serif">
-<rect width="880" height="820" fill="#F7F3EA"/>
-<text x="150" y="46" font-size="25" font-weight="bold" fill="#221F1A">The map of work</text>
-<text x="150" y="72" font-size="14.5" font-style="italic" fill="#7A7264">What kind of work goes where, and where the AI bill actually lands.</text>
-<rect x="150" y="120" width="270.0" height="270.0" fill="#B0502F" fill-opacity="0.07"/>
-<rect x="420.0" y="120" width="270.0" height="270.0" fill="#9A8A6A" fill-opacity="0.09"/>
-<rect x="150" y="390.0" width="270.0" height="270.0" fill="#9A8A6A" fill-opacity="0.05"/>
-<rect x="420.0" y="390.0" width="270.0" height="270.0" fill="#2E5E8C" fill-opacity="0.09"/>
-<line x1="420.0" y1="120" x2="420.0" y2="660" stroke="#7A7264" stroke-opacity="0.5" stroke-width="0.9" stroke-dasharray="3 4"/>
-<line x1="150" y1="390.0" x2="690" y2="390.0" stroke="#7A7264" stroke-opacity="0.5" stroke-width="0.9" stroke-dasharray="3 4"/>
-<line x1="150" y1="660" x2="690" y2="660" stroke="#221F1A" stroke-width="1.4"/>
-<line x1="150" y1="660" x2="150" y2="120" stroke="#221F1A" stroke-width="1.4"/>
-<path d="M690,660 l-9,-4 l0,8 Z" fill="#221F1A"/>
-<path d="M150,120 l-4,9 l8,0 Z" fill="#221F1A"/>
-<text x="158" y="150" font-size="12" letter-spacing="1.6" fill="#7A7264">HUMAN-ONLY</text>
-<text x="682" y="150" font-size="12" letter-spacing="1.6" fill="#7A7264" text-anchor="end">AI-LED · SUPERVISED</text>
-<text x="158" y="646" font-size="12" letter-spacing="1.6" fill="#7A7264">HUMAN-LED + AI</text>
-<text x="682" y="646" font-size="12" letter-spacing="1.6" fill="#7A7264" text-anchor="end">MACHINE-LED</text>
-<circle cx="592.8" cy="562.8" r="19.8" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="592.8" y="533.0" font-size="12.5" fill="#221F1A" text-anchor="middle">Doc data-entry · OCR</text>
-<circle cx="528.0" cy="444.0" r="28.0" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="492.0" y="448.0" font-size="12.5" fill="#221F1A" text-anchor="end">Ticket triage &amp; routing</text>
-<circle cx="582.0" cy="303.6" r="44.3" fill="#B0502F" fill-opacity="0.60" stroke="#B0502F" stroke-width="1.3"/>
-<text x="582.0" y="249.3" font-size="12.5" fill="#221F1A" text-anchor="middle">Agentic code review</text>
-<circle cx="495.6" cy="357.6" r="37.0" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="450.6" y="361.6" font-size="12.5" fill="#221F1A" text-anchor="end">Tier-1 support chat</text>
-<circle cx="312.0" cy="465.6" r="28.0" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="312.0" y="511.6" font-size="12.5" fill="#221F1A" text-anchor="middle">Analyst research memo</text>
-<circle cx="376.8" cy="552.0" r="24.2" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="409.0" y="556.0" font-size="12.5" fill="#221F1A" text-anchor="start">First-draft decks</text>
-<circle cx="279.6" cy="260.4" r="28.0" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="279.6" y="306.4" font-size="12.5" fill="#221F1A" text-anchor="middle">Regulatory filings</text>
-<circle cx="236.4" cy="174.0" r="14.0" fill="#2E5E8C" fill-opacity="0.52" stroke="#2E5E8C" stroke-width="1.3"/>
-<text x="258.4" y="178.0" font-size="12.5" fill="#221F1A" text-anchor="start">Board-level decisions</text>
-<line x1="626.3" y1="303.6" x2="710" y2="312" stroke="#B0502F" stroke-width="0.9"/>
-<text x="716" y="305" font-size="12.5" font-style="italic" fill="#B0502F"><tspan x="716" dy="0">where the meter</tspan><tspan x="716" dy="16">runs hottest</tspan></text>
-<text x="420.0" y="690" font-size="11.5" letter-spacing="2" fill="#221F1A" text-anchor="middle">VOLUME &amp; REPEATABILITY&#160;&#8594;</text>
-<text x="116" y="390.0" font-size="11.5" letter-spacing="2" fill="#221F1A" text-anchor="middle" transform="rotate(-90 116 390.0)">COST OF ERROR · ACCOUNTABILITY&#160;&#8594;</text>
-<text x="154" y="678" font-size="11" fill="#7A7264">low</text>
-<text x="690" y="678" font-size="11" fill="#7A7264" text-anchor="end">high</text>
-<text x="138" y="660" font-size="11" fill="#7A7264" text-anchor="end">low</text>
-<text x="138" y="130" font-size="11" fill="#7A7264" text-anchor="end">high</text>
-<text x="150" y="760" font-size="11.5" letter-spacing="1.4" fill="#221F1A">BUBBLE AREA &#8733; AI COST (tokens burned per task)</text>
-<text x="540" y="760" font-size="11" fill="#7A7264" text-anchor="end">low</text>
-<circle cx="560" cy="753" r="7" fill="#2E5E8C" fill-opacity="0.45" stroke="#2E5E8C" stroke-width="1.1"/>
-<circle cx="612" cy="747" r="13" fill="#2E5E8C" fill-opacity="0.45" stroke="#2E5E8C" stroke-width="1.1"/>
-<circle cx="672" cy="740" r="20" fill="#2E5E8C" fill-opacity="0.45" stroke="#2E5E8C" stroke-width="1.1"/>
-<text x="702" y="760" font-size="11" fill="#7A7264">high</text>
-<text x="150" y="790" font-size="11" font-style="italic" fill="#7A7264">Placement and bubble sizes are illustrative, not measured.</text>
+<style>
+  :root {
+    --bg:#F7F3EA; --ink:#221F1A; --muted:#7A7264;
+    --clay:#B0502F; --blue:#2E5E8C; --gold:#D9B968; --gold-ink:#8a6d1f; --tint:#9A8A6A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#211C16; --ink:#ECE6D8; --muted:#9C9488;
+      --clay:#E07B52; --blue:#6FA6D6; --gold:#E6C877; --gold-ink:#D4B45E; --tint:#B9A988;
+    }
+  }
+</style>
+<rect width="880" height="820" fill="var(--bg)"/>
+<text x="150" y="46" font-size="25" font-weight="bold" fill="var(--ink)">The map of work</text>
+<text x="150" y="72" font-size="14.5" font-style="italic" fill="var(--muted)">What kind of work goes where, and where the AI bill actually lands.</text>
+<rect x="150" y="120" width="270.0" height="270.0" fill="var(--clay)" fill-opacity="0.07"/>
+<rect x="420.0" y="120" width="270.0" height="270.0" fill="var(--tint)" fill-opacity="0.09"/>
+<rect x="150" y="390.0" width="270.0" height="270.0" fill="var(--tint)" fill-opacity="0.05"/>
+<rect x="420.0" y="390.0" width="270.0" height="270.0" fill="var(--blue)" fill-opacity="0.09"/>
+<line x1="420.0" y1="120" x2="420.0" y2="660" stroke="var(--muted)" stroke-opacity="0.5" stroke-width="0.9" stroke-dasharray="3 4"/>
+<line x1="150" y1="390.0" x2="690" y2="390.0" stroke="var(--muted)" stroke-opacity="0.5" stroke-width="0.9" stroke-dasharray="3 4"/>
+<line x1="150" y1="660" x2="690" y2="660" stroke="var(--ink)" stroke-width="1.4"/>
+<line x1="150" y1="660" x2="150" y2="120" stroke="var(--ink)" stroke-width="1.4"/>
+<path d="M690,660 l-9,-4 l0,8 Z" fill="var(--ink)"/>
+<path d="M150,120 l-4,9 l8,0 Z" fill="var(--ink)"/>
+<text x="158" y="150" font-size="12" letter-spacing="1.6" fill="var(--muted)">HUMAN-ONLY</text>
+<text x="682" y="150" font-size="12" letter-spacing="1.6" fill="var(--muted)" text-anchor="end">AI-LED · SUPERVISED</text>
+<text x="158" y="646" font-size="12" letter-spacing="1.6" fill="var(--muted)">HUMAN-LED + AI</text>
+<text x="682" y="646" font-size="12" letter-spacing="1.6" fill="var(--muted)" text-anchor="end">MACHINE-LED</text>
+<circle cx="592.8" cy="562.8" r="19.8" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="592.8" y="533.0" font-size="12.5" fill="var(--ink)" text-anchor="middle">Doc data-entry · OCR</text>
+<circle cx="528.0" cy="444.0" r="28.0" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="492.0" y="448.0" font-size="12.5" fill="var(--ink)" text-anchor="end">Ticket triage &amp; routing</text>
+<circle cx="582.0" cy="303.6" r="44.3" fill="var(--clay)" fill-opacity="0.60" stroke="var(--clay)" stroke-width="1.3"/>
+<text x="582.0" y="249.3" font-size="12.5" fill="var(--ink)" text-anchor="middle">Agentic code review</text>
+<circle cx="495.6" cy="357.6" r="37.0" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="450.6" y="361.6" font-size="12.5" fill="var(--ink)" text-anchor="end">Tier-1 support chat</text>
+<circle cx="312.0" cy="465.6" r="28.0" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="312.0" y="511.6" font-size="12.5" fill="var(--ink)" text-anchor="middle">Analyst research memo</text>
+<circle cx="376.8" cy="552.0" r="24.2" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="409.0" y="556.0" font-size="12.5" fill="var(--ink)" text-anchor="start">First-draft decks</text>
+<circle cx="279.6" cy="260.4" r="28.0" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="279.6" y="306.4" font-size="12.5" fill="var(--ink)" text-anchor="middle">Regulatory filings</text>
+<circle cx="236.4" cy="174.0" r="14.0" fill="var(--blue)" fill-opacity="0.52" stroke="var(--blue)" stroke-width="1.3"/>
+<text x="258.4" y="178.0" font-size="12.5" fill="var(--ink)" text-anchor="start">Board-level decisions</text>
+<line x1="626.3" y1="303.6" x2="710" y2="312" stroke="var(--clay)" stroke-width="0.9"/>
+<text x="716" y="305" font-size="12.5" font-style="italic" fill="var(--clay)"><tspan x="716" dy="0">where the meter</tspan><tspan x="716" dy="16">runs hottest</tspan></text>
+<text x="420.0" y="690" font-size="11.5" letter-spacing="2" fill="var(--ink)" text-anchor="middle">VOLUME &amp; REPEATABILITY&#160;&#8594;</text>
+<text x="116" y="390.0" font-size="11.5" letter-spacing="2" fill="var(--ink)" text-anchor="middle" transform="rotate(-90 116 390.0)">COST OF ERROR · ACCOUNTABILITY&#160;&#8594;</text>
+<text x="154" y="678" font-size="11" fill="var(--muted)">low</text>
+<text x="690" y="678" font-size="11" fill="var(--muted)" text-anchor="end">high</text>
+<text x="138" y="660" font-size="11" fill="var(--muted)" text-anchor="end">low</text>
+<text x="138" y="130" font-size="11" fill="var(--muted)" text-anchor="end">high</text>
+<text x="150" y="760" font-size="11.5" letter-spacing="1.4" fill="var(--ink)">BUBBLE AREA &#8733; AI COST (tokens burned per task)</text>
+<text x="540" y="760" font-size="11" fill="var(--muted)" text-anchor="end">low</text>
+<circle cx="560" cy="753" r="7" fill="var(--blue)" fill-opacity="0.45" stroke="var(--blue)" stroke-width="1.1"/>
+<circle cx="612" cy="747" r="13" fill="var(--blue)" fill-opacity="0.45" stroke="var(--blue)" stroke-width="1.1"/>
+<circle cx="672" cy="740" r="20" fill="var(--blue)" fill-opacity="0.45" stroke="var(--blue)" stroke-width="1.1"/>
+<text x="702" y="760" font-size="11" fill="var(--muted)">high</text>
+<text x="150" y="790" font-size="11" font-style="italic" fill="var(--muted)">Placement and bubble sizes are illustrative, not measured.</text>
 </svg>

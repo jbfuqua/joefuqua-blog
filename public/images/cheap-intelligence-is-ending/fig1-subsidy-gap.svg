@@ -1,19 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 560" font-family="Georgia, 'Times New Roman', serif">
-  <rect width="820" height="560" fill="#F7F3EA"/>
+  <style>
+    :root {
+      --bg:#F7F3EA; --ink:#221F1A; --muted:#7A7264;
+      --clay:#B0502F; --blue:#2E5E8C; --gold:#D9B968; --gold-ink:#8a6d1f; --tint:#9A8A6A;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:#211C16; --ink:#ECE6D8; --muted:#9C9488;
+        --clay:#E07B52; --blue:#6FA6D6; --gold:#E6C877; --gold-ink:#D4B45E; --tint:#B9A988;
+      }
+    }
+  </style>
+  <rect width="820" height="560" fill="var(--bg)"/>
 
-  <text x="80" y="44" font-size="25" font-weight="bold" fill="#221F1A">The subsidy gap</text>
-  <text x="80" y="70" font-size="14.5" font-style="italic" fill="#7A7264">Metered pricing feels like a shock because the bill was always there.</text>
+  <text x="80" y="44" font-size="25" font-weight="bold" fill="var(--ink)">The subsidy gap</text>
+  <text x="80" y="70" font-size="14.5" font-style="italic" fill="var(--muted)">Metered pricing feels like a shock because the bill was always there.</text>
 
   <!-- legend row, above the plot, well clear -->
-  <g font-size="13" fill="#221F1A">
-    <line x1="80" y1="98" x2="110" y2="98" stroke="#B0502F" stroke-width="3"/>
+  <g font-size="13" fill="var(--ink)">
+    <line x1="80" y1="98" x2="110" y2="98" stroke="var(--clay)" stroke-width="3"/>
     <text x="118" y="102.5">True cost to serve</text>
-    <line x1="300" y1="98" x2="330" y2="98" stroke="#2E5E8C" stroke-width="3"/>
+    <line x1="300" y1="98" x2="330" y2="98" stroke="var(--blue)" stroke-width="3"/>
     <text x="338" y="102.5">What the user feels they pay</text>
   </g>
 
   <!-- plot: x 80..760, y 140..440 -->
-  <g stroke="#7A7264" stroke-opacity="0.16" stroke-width="0.75">
+  <g stroke="var(--muted)" stroke-opacity="0.16" stroke-width="0.75">
     <line x1="80" y1="215" x2="760" y2="215"/>
     <line x1="80" y1="290" x2="760" y2="290"/>
     <line x1="80" y1="365" x2="760" y2="365"/>
@@ -21,10 +33,10 @@
 
   <!-- subsidy wedge (between true above and felt below, t 0..0.65) -->
   <path d="M80,378 C150,366 200,358 250,347 C330,330 360,318 420,303 C470,291 500,281 522,270 L522,401 C410,403 200,405 80,407 Z"
-        fill="#D9B968" fill-opacity="0.40"/>
+        fill="var(--gold)" fill-opacity="0.40"/>
 
   <!-- phase dividers -->
-  <g stroke="#7A7264" stroke-opacity="0.28" stroke-width="0.75" stroke-dasharray="2 4">
+  <g stroke="var(--muted)" stroke-opacity="0.28" stroke-width="0.75" stroke-dasharray="2 4">
     <line x1="216" y1="140" x2="216" y2="440"/>
     <line x1="352" y1="140" x2="352" y2="440"/>
     <line x1="488" y1="140" x2="488" y2="440"/>
@@ -32,26 +44,26 @@
   </g>
 
   <!-- axes -->
-  <line x1="80" y1="140" x2="80" y2="440" stroke="#221F1A" stroke-width="1.25"/>
-  <line x1="80" y1="440" x2="760" y2="440" stroke="#221F1A" stroke-width="1.25"/>
+  <line x1="80" y1="140" x2="80" y2="440" stroke="var(--ink)" stroke-width="1.25"/>
+  <line x1="80" y1="440" x2="760" y2="440" stroke="var(--ink)" stroke-width="1.25"/>
 
   <!-- felt cost (blue): flat low, snap up at pricing, then rise -->
   <path d="M80,407 C200,405 410,403 522,401 L552,300 C620,262 700,222 760,200"
-        fill="none" stroke="#2E5E8C" stroke-width="2.6" stroke-linecap="round"/>
+        fill="none" stroke="var(--blue)" stroke-width="2.6" stroke-linecap="round"/>
   <!-- true cost (clay): steady rise -->
   <path d="M80,378 C150,366 200,358 250,347 C330,330 360,318 420,303 C470,291 500,281 522,270 C600,244 690,205 760,182"
-        fill="none" stroke="#B0502F" stroke-width="2.6" stroke-linecap="round"/>
+        fill="none" stroke="var(--clay)" stroke-width="2.6" stroke-linecap="round"/>
 
   <!-- subsidy label, centred in open wedge -->
-  <text x="250" y="382" font-size="12.5" letter-spacing="2" fill="#8a6d1f">THE&#160;SUBSIDY</text>
+  <text x="250" y="382" font-size="12.5" letter-spacing="2" fill="var(--gold-ink)">THE&#160;SUBSIDY</text>
 
   <!-- pricing annotation, in open space below-right of the snap, leader up to the snap -->
-  <line x1="556" y1="372" x2="545" y2="335" stroke="#221F1A" stroke-width="0.9"/>
-  <circle cx="545" cy="335" r="2.4" fill="#221F1A"/>
-  <text x="560" y="382" font-size="12.5" font-style="italic" fill="#221F1A">pricing closes the gap</text>
+  <line x1="556" y1="372" x2="545" y2="335" stroke="var(--ink)" stroke-width="0.9"/>
+  <circle cx="545" cy="335" r="2.4" fill="var(--ink)"/>
+  <text x="560" y="382" font-size="12.5" font-style="italic" fill="var(--ink)">pricing closes the gap</text>
 
   <!-- phase labels -->
-  <g font-size="11" letter-spacing="1.2" fill="#7A7264" text-anchor="middle">
+  <g font-size="11" letter-spacing="1.2" fill="var(--muted)" text-anchor="middle">
     <text x="148" y="462">SUBSIDY</text>
     <text x="284" y="462">DEPENDENCY</text>
     <text x="420" y="462">SCARCITY</text>
@@ -60,6 +72,6 @@
   </g>
 
   <!-- axis titles -->
-  <text x="420" y="496" font-size="11.5" letter-spacing="2" fill="#221F1A" text-anchor="middle">TIME&#160;·&#160;ADOPTION&#160;MATURITY</text>
-  <text x="30" y="290" font-size="11.5" letter-spacing="2" fill="#221F1A" text-anchor="middle" transform="rotate(-90 30 290)">COST</text>
+  <text x="420" y="496" font-size="11.5" letter-spacing="2" fill="var(--ink)" text-anchor="middle">TIME&#160;·&#160;ADOPTION&#160;MATURITY</text>
+  <text x="30" y="290" font-size="11.5" letter-spacing="2" fill="var(--ink)" text-anchor="middle" transform="rotate(-90 30 290)">COST</text>
 </svg>
