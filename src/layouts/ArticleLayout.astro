@@ -9,13 +9,18 @@ interface Props {
   excerpt?: string;
   issue?: number;
   source?: string;
+  ogImage?: string;
   currentPath?: string;
 }
 
-const { title, date, category, excerpt, issue, source, currentPath } = Astro.props;
+const { title, date, category, excerpt, issue, source, ogImage: ogImageOverride, currentPath } = Astro.props;
 
 const slug = currentPath?.replace('/writing/', '') || '';
-const ogImage = slug ? `https://joefuqua.blog/writing/og/${slug}.png` : undefined;
+const toAbsolute = (path: string) =>
+  path.startsWith('http') ? path : `https://joefuqua.blog${path.startsWith('/') ? '' : '/'}${path}`;
+const ogImage = ogImageOverride
+  ? toAbsolute(ogImageOverride)
+  : slug ? `https://joefuqua.blog/writing/og/${slug}.png` : undefined;
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric'

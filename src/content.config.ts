@@ -15,7 +15,9 @@ const baseSchema = z.object({
 // Long-form LinkedIn articles + original essays
 const articles = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
-  schema: baseSchema,
+  schema: baseSchema.extend({
+    ogImage: z.string().optional(),        // overrides the auto-generated OG card, e.g. a figure
+  }),
 });
 
 // Algorithm & Blues weekly issues
