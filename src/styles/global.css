@@ -9,8 +9,8 @@
   --paper: #e9e4da;        /* putty ground */
   --paper-warm: #e0dacd;   /* deeper panel: bands, footer, cards */
   --paper-rule: #d3ccbf;
-  --accent: #a5481b;       /* ember-ink: text, links, hover (AA on putty) */
-  --accent-light: #c4622d; /* ember: decorative marks and rules */
+  --accent: #2c5a68;       /* teal-ink: text, links, hover (AA on putty) */
+  --accent-light: #3a7183; /* teal: decorative marks and rules */
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Cormorant Garamond', Georgia, serif;

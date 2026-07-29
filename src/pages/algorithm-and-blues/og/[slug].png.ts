@@ -58,7 +58,7 @@ export const GET: APIRoute = async ({ props }) => {
               style: {
                 display: 'flex',
                 fontSize: '22px',
-                color: '#a5481b',
+                color: '#2c5a68',
               },
               children: `Algorithm & Blues · #${issue}`,
             },
@@ -97,7 +97,7 @@ export const GET: APIRoute = async ({ props }) => {
                       display: 'flex',
                       width: '280px',
                       height: '2px',
-                      background: '#c4622d',
+                      background: '#3a7183',
                       borderRadius: '1px',
                     },
                   },

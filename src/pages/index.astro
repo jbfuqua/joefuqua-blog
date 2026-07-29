@@ -8,11 +8,20 @@ const anb = await getCollection('anb');
 
 const recentArticles = articles
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 3);
+  .slice(0, 4);
+
+const featuredEssay = recentArticles[0];
+const moreArticles = recentArticles.slice(1);
 
 const recentAnb = anb
   .sort((a, b) => (b.data.issue ?? 0) - (a.data.issue ?? 0))
   .slice(0, 4);
+
+const categoryLabels: Record<string, string> = {
+  'governance': 'Governance & Control',
+  'futures': 'Futures & Long Arc',
+  'technology-society': 'Technology & Society',
+};
 
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
@@ -37,6 +46,19 @@ function articleUrl(post: any) {
       <p class="hero-body">
         I write about the longer arc... why the panic is usually wrong, how <strong>governance becomes the actual competitive advantage</strong>, and what it takes to build organizations that are ready for what comes next.
       </p>
+
+      {featuredEssay && (
+        <div class="hero-feature">
+          <div class="hero-feature-tag">Featured Essay · {categoryLabels[featuredEssay.data.category] ?? featuredEssay.data.category}</div>
+          <a href={articleUrl(featuredEssay)}>
+            <h2 class="hero-feature-title">{featuredEssay.data.title}</h2>
+          </a>
+          {featuredEssay.data.excerpt && (
+            <p class="hero-feature-excerpt">{featuredEssay.data.excerpt}</p>
+          )}
+          <a href={articleUrl(featuredEssay)} class="hero-feature-link">Read the essay →</a>
+        </div>
+      )}
     </div>
 
     <aside class="hero-sidebar">
@@ -110,7 +132,7 @@ function articleUrl(post: any) {
   </div>
 
   <section class="featured-grid">
-    {recentArticles.map((post, i) => (
+    {moreArticles.map((post, i) => (
       <div class="featured-card">
         <div class="card-tag">{post.data.category}</div>
         <a href={articleUrl(post)}>
@@ -201,7 +223,7 @@ function articleUrl(post: any) {
 
   /* ── HERO ── */
   .hero {
-    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem) 0;
+    padding: clamp(1.5rem, 3vw, 2.4rem) clamp(1.5rem, 5vw, 4rem) 0;
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 0;
@@ -210,8 +232,8 @@ function articleUrl(post: any) {
   }
 
   .hero-lede {
-    padding-right: 3rem;
-    padding-bottom: 2.5rem;
+    padding-right: 2.75rem;
+    padding-bottom: 2rem;
   }
 
   .hero-eyebrow {
@@ -250,14 +272,60 @@ function articleUrl(post: any) {
   }
 
   .hero-body {
-    margin-top: 1.5rem;
-    font-size: 1rem;
+    margin-top: 1rem;
+    font-size: 1.05rem;
     color: var(--ink-mid);
-    max-width: 62ch;
-    line-height: 1.8;
+    max-width: 54ch;
+    line-height: 1.55;
   }
 
   .hero-body strong { font-weight: 700; color: var(--ink); }
+
+  /* Featured essay pulled into the hero to fill the left column */
+  .hero-feature {
+    margin-top: 1.6rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--paper-rule);
+  }
+
+  .hero-feature-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-feature-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 2.6vw, 2.35rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+
+  .hero-feature-title:hover { color: var(--accent); }
+
+  .hero-feature-excerpt {
+    margin-top: 0.6rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink-mid);
+    max-width: 52ch;
+  }
+
+  .hero-feature-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
 
   /* ── SIDEBAR ── */
   .hero-sidebar {
@@ -333,7 +401,7 @@ function articleUrl(post: any) {
   }
 
   .start-here-card-accent {
-    background: linear-gradient(180deg, rgba(196, 98, 45, 0.12), rgba(224, 120, 64, 0.05));
+    background: linear-gradient(180deg, rgba(58, 113, 131, 0.12), rgba(44, 90, 104, 0.05));
     border-color: var(--accent-light);
   }
 
