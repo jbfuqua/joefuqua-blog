@@ -23,11 +23,17 @@ const {
 const anb = await getCollection('anb');
 const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).length;
 
+// Cross-property switcher (left) — the three sites, no repeated wordmark
+const siteLinks = [
+  { href: 'https://joefuqua.com', label: 'joefuqua.com', key: 'com' },
+  { href: 'https://joefuqua.blog', label: 'joefuqua.blog', key: 'blog' },
+  { href: 'https://joefuqua.art', label: 'joefuqua.art', key: 'art' },
+];
+
+// Utility links (right)
 const sharedNavLinks = [
-  { href: 'https://joefuqua.com', label: 'Home', key: 'home' },
-  { href: 'https://joefuqua.blog', label: 'Writing', key: 'writing' },
-  { href: 'https://joefuqua.art', label: 'Art', key: 'art' },
   { href: 'https://joefuqua.com/about', label: 'About', key: 'about' },
+  { href: '/search', label: 'Search', key: 'search' },
   { href: 'https://joefuqua.blog/algorithm-and-blues#subscribe', label: 'Subscribe', key: 'subscribe' },
 ];
 
@@ -37,15 +43,11 @@ const socialLinks = [
   { href: 'https://instagram.com/a.nod.tothe.odd', label: '@a.nod.tothe.odd' },
 ];
 
-const sharedActiveKey = currentPath === '/'
-  ? 'writing'
-  : currentPath === '/about'
-    ? 'about'
-    : currentPath.startsWith('/algorithm-and-blues')
-      ? 'subscribe'
-      : currentPath.startsWith('/writing')
-        ? 'writing'
-        : '';
+const sharedActiveKey = currentPath === '/search'
+  ? 'search'
+  : currentPath.startsWith('/algorithm-and-blues')
+    ? 'subscribe'
+    : '';
 ---
 
 <!DOCTYPE html>
@@ -68,7 +70,17 @@ const sharedActiveKey = currentPath === '/'
   <div class="site-shell">
     <header class="ecosystem-bar">
       <div class="ecosystem-inner">
-        <a href="https://joefuqua.com" class="ecosystem-brand">Joe Fuqua</a>
+        <nav class="ecosystem-switch" aria-label="Joe Fuqua sites">
+          {siteLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={['ecosystem-site', link.key === 'blog' && 'ecosystem-site-here']}
+              aria-current={link.key === 'blog' ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
         <button
           class="ecosystem-toggle"
           type="button"
@@ -77,7 +89,7 @@ const sharedActiveKey = currentPath === '/'
         >
           Menu
         </button>
-        <nav id="ecosystem-nav" class="ecosystem-nav" aria-label="Cross-site">
+        <nav id="ecosystem-nav" class="ecosystem-nav" aria-label="Utility">
           {sharedNavLinks.map((link) => (
             <a
               href={link.href}

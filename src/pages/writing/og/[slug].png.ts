@@ -51,7 +51,7 @@ export const GET: APIRoute = async ({ props }) => {
         style: {
           width: '1200px',
           height: '630px',
-          background: '#f5f0e8',
+          background: '#e9e4da',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -65,7 +65,7 @@ export const GET: APIRoute = async ({ props }) => {
               style: {
                 display: 'flex',
                 fontSize: '20px',
-                color: '#8a8070',
+                color: '#a5481b',
                 letterSpacing: '0.05em',
               },
               children: catLabel,
@@ -88,7 +88,7 @@ export const GET: APIRoute = async ({ props }) => {
                       display: 'flex',
                       fontSize: `${titleSize}px`,
                       fontStyle: 'italic',
-                      color: '#1c1914',
+                      color: '#1c1813',
                       textAlign: 'center',
                       lineHeight,
                       maxWidth: '1000px',
@@ -104,7 +104,7 @@ export const GET: APIRoute = async ({ props }) => {
                       display: 'flex',
                       width: '280px',
                       height: '2px',
-                      background: '#c8901a',
+                      background: '#c4622d',
                       borderRadius: '1px',
                     },
                   },
@@ -115,7 +115,7 @@ export const GET: APIRoute = async ({ props }) => {
                     style: {
                       display: 'flex',
                       fontSize: '18px',
-                      color: '#6a6055',
+                      color: '#5a5142',
                       textAlign: 'center',
                       lineHeight: 1.5,
                       maxWidth: '800px',
@@ -135,21 +135,21 @@ export const GET: APIRoute = async ({ props }) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-end',
-                borderTop: '1px solid #c8b89a',
+                borderTop: '1px solid #cabfa4',
                 paddingTop: '20px',
               },
               children: [
                 {
                   type: 'div',
                   props: {
-                    style: { display: 'flex', fontSize: '20px', color: '#8a8070' },
+                    style: { display: 'flex', fontSize: '20px', color: '#7c7259' },
                     children: 'joefuqua.blog',
                   },
                 },
                 {
                   type: 'div',
                   props: {
-                    style: { display: 'flex', fontSize: '18px', color: '#a09080' },
+                    style: { display: 'flex', fontSize: '18px', color: '#a99d86' },
                     children: 'Joe Fuqua',
                   },
                 },

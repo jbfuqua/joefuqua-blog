@@ -1,18 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Mono:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
 :root {
-  --ink: #141820;
-  --ink-mid: #2e3444;
-  --ink-light: #6b7490;
-  --ink-faint: #a8afc4;
-  --paper: #eef0f4;
-  --paper-warm: #e4e7ee;
-  --paper-rule: #cdd1dc;
-  --accent: #9a7c2e;
-  --accent-light: #c4a044;
+  /* warm-light identity, sibling to joefuqua.com (Cormorant + DM Mono + ember) */
+  --ink: #1c1813;
+  --ink-mid: #5a5142;
+  --ink-light: #7c7259;
+  --ink-faint: #a99d86;
+  --paper: #e9e4da;        /* putty ground */
+  --paper-warm: #e0dacd;   /* deeper panel: bands, footer, cards */
+  --paper-rule: #d3ccbf;
+  --accent: #a5481b;       /* ember-ink: text, links, hover (AA on putty) */
+  --accent-light: #c4622d; /* ember: decorative marks and rules */
 
-  --font-display: 'Raleway', sans-serif;
-  --font-body: 'Libre Baskerville', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
   --font-mono: 'DM Mono', monospace;
 
   --content-width: 1200px;
@@ -79,6 +80,37 @@ a:hover { color: var(--accent); }
   white-space: nowrap;
 }
 
+.ecosystem-switch {
+  display: flex;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ecosystem-site {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+.ecosystem-site:hover { color: var(--accent); }
+
+.ecosystem-site-here { color: var(--ink); }
+
+.ecosystem-site-here::before {
+  content: '';
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--accent-light);
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
 .ecosystem-nav {
   display: flex;
   align-items: center;
@@ -142,17 +174,15 @@ a:hover { color: var(--accent); }
 
 .site-name {
   font-family: var(--font-display);
-  font-size: clamp(1.9rem, 5vw, 3rem);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
 }
 
 .site-name span {
-  font-weight: 400;
-  color: var(--accent);
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--accent-light);
 }
 
 .masthead-meta {
@@ -349,10 +379,9 @@ a:hover { color: var(--accent); }
 
 .site-footer-title strong {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .site-footer-title span,
@@ -402,36 +431,39 @@ a:hover { color: var(--accent); }
 
 .prose h2 {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.95rem;
   font-weight: 600;
-  margin: 2.5rem 0 1rem;
+  letter-spacing: -0.01em;
+  margin: 2.6rem 0 1rem;
   color: var(--ink);
 }
 
 .prose h3 {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.55rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   margin: 2rem 0 0.75rem;
   color: var(--ink);
 }
 
-.prose p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+.prose p { margin-bottom: 1.5rem; font-size: 1.3rem; line-height: 1.72; }
 
 .prose ul, .prose ol {
   margin: 0 0 1.5rem 1.5rem;
-  font-size: 1.05rem;
+  font-size: 1.3rem;
+  line-height: 1.72;
 }
 
 .prose li { margin-bottom: 0.4rem; }
 
 .prose blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--accent-light);
   margin: 2rem 0;
   padding: 0.5rem 0 0.5rem 1.5rem;
   font-style: italic;
   color: var(--ink-mid);
-  font-size: 1.1rem;
+  font-size: 1.4rem;
 }
 
 .prose a {
@@ -498,10 +530,10 @@ a:hover { color: var(--accent); }
 
 .article-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-size: clamp(2.4rem, 5.5vw, 3.7rem);
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   color: var(--ink);
   margin-bottom: 1.25rem;
 }
@@ -563,10 +595,11 @@ a:hover { color: var(--accent); }
 }
 
 .card-title {
-  font-family: 'Raleway', sans-serif;
-  font-size: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   color: var(--ink);
   margin-bottom: 0.5rem;
   transition: color 0.15s;
