@@ -54,4 +54,4 @@ https://arxiv.org/abs/2608.04205
 📄 Assessing the Reliability of Persona-Conditioned LLMs as Synthetic Survey Respondents
 https://arxiv.org/abs/2602.18462
 
-*Algorithm & Blues publishes on Sundays. If this was forwarded to you, you can subscribe at joefuqua.blog.*
+*Algorithm & Blues publishes on Sundays.*
