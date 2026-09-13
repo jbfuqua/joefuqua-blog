@@ -2,6 +2,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://joefuqua.blog',
+  site: 'https://www.joefuqua.blog',
   integrations: [sitemap()],
 });

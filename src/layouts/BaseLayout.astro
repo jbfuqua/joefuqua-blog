@@ -10,6 +10,8 @@ interface Props {
   currentPath?: string;
   showGlobalSignup?: boolean;
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
 }
 
 const {
@@ -18,7 +20,18 @@ const {
   currentPath = '',
   showGlobalSignup = !currentPath.startsWith('/writing/') && !currentPath.startsWith('/algorithm-and-blues/'),
   ogImage,
+  ogType = 'website',
+  publishedTime,
 } = Astro.props;
+
+const siteOrigin = 'https://www.joefuqua.blog';
+const canonicalUrl = `${siteOrigin}${currentPath || '/'}`;
+const defaultOgImage = `${siteOrigin}/og-default.png`;
+const resolvedOgImage = ogImage?.startsWith('https://joefuqua.blog/')
+  ? ogImage.replace('https://joefuqua.blog/', `${siteOrigin}/`)
+  : ogImage ?? defaultOgImage;
+const socialTitle = title;
+const socialImageAlt = `${title} social preview`;
 
 const anb = await getCollection('anb');
 const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).length;
@@ -57,14 +70,27 @@ const sharedActiveKey = currentPath === '/search'
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <title>{title === 'Joe Fuqua' ? title : `${title} — Joe Fuqua`}</title>
-  <link rel="canonical" href={`https://joefuqua.blog${currentPath}`} />
+  <link rel="canonical" href={canonicalUrl} />
   <link rel="sitemap" href="/sitemap-index.xml" />
-  <meta property="og:title" content="Joe Fuqua" />
-  <meta property="og:description" content="Writing, art, and a long view of intelligent machines. Panic is optional. Preparation isn't." />
-  <meta property="og:image" content={ogImage ?? "https://joefuqua.blog/og-default.png"} />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content={socialTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="Joe Fuqua" />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:image" content={resolvedOgImage} />
+  <meta property="og:image:secure_url" content={resolvedOgImage} />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={socialImageAlt} />
+  {ogType === 'article' && publishedTime && (
+    <meta property="article:published_time" content={publishedTime} />
+  )}
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content={ogImage ?? "https://joefuqua.blog/og-default.png"} />
+  <meta name="twitter:title" content={socialTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={resolvedOgImage} />
+  <meta name="twitter:image:alt" content={socialImageAlt} />
 </head>
 <body>
   <div class="site-shell">

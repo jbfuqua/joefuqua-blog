@@ -17,10 +17,11 @@ const { title, date, category, excerpt, issue, source, ogImage: ogImageOverride,
 
 const slug = currentPath?.replace('/writing/', '') || '';
 const toAbsolute = (path: string) =>
-  path.startsWith('http') ? path : `https://joefuqua.blog${path.startsWith('/') ? '' : '/'}${path}`;
+  path.startsWith('http') ? path : `https://www.joefuqua.blog${path.startsWith('/') ? '' : '/'}${path}`;
 const ogImage = ogImageOverride
   ? toAbsolute(ogImageOverride)
-  : slug ? `https://joefuqua.blog/writing/og/${slug}.png` : undefined;
+  : slug ? `https://www.joefuqua.blog/writing/og/${slug}.png` : undefined;
+const publishedTime = new Date(date).toISOString();
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric'
@@ -46,7 +47,14 @@ const related = articles
   .slice(0, 3);
 ---
 
-<BaseLayout title={title} description={excerpt} currentPath={currentPath} ogImage={ogImage}>
+<BaseLayout
+  title={title}
+  description={excerpt}
+  currentPath={currentPath}
+  ogImage={ogImage}
+  ogType="article"
+  publishedTime={publishedTime}
+>
   <article>
     <div class="article-header">
       <div class="article-eyebrow">{eyebrow}</div>
