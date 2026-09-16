@@ -10,10 +10,11 @@ interface Props {
   issue?: number;
   source?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   currentPath?: string;
 }
 
-const { title, date, category, excerpt, issue, source, ogImage: ogImageOverride, currentPath } = Astro.props;
+const { title, date, category, excerpt, issue, source, ogImage: ogImageOverride, ogImageAlt, currentPath } = Astro.props;
 
 const slug = currentPath?.replace('/writing/', '') || '';
 const toAbsolute = (path: string) =>
@@ -52,6 +53,7 @@ const related = articles
   description={excerpt}
   currentPath={currentPath}
   ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
   ogType="article"
   publishedTime={publishedTime}
 >

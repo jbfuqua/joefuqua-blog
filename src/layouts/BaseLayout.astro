@@ -10,6 +10,7 @@ interface Props {
   currentPath?: string;
   showGlobalSignup?: boolean;
   ogImage?: string;
+  ogImageAlt?: string;
   ogType?: 'website' | 'article';
   publishedTime?: string;
 }
@@ -20,6 +21,7 @@ const {
   currentPath = '',
   showGlobalSignup = !currentPath.startsWith('/writing/') && !currentPath.startsWith('/algorithm-and-blues/'),
   ogImage,
+  ogImageAlt,
   ogType = 'website',
   publishedTime,
 } = Astro.props;
@@ -31,7 +33,7 @@ const resolvedOgImage = ogImage?.startsWith('https://joefuqua.blog/')
   ? ogImage.replace('https://joefuqua.blog/', `${siteOrigin}/`)
   : ogImage ?? defaultOgImage;
 const socialTitle = title;
-const socialImageAlt = `${title} social preview`;
+const socialImageAlt = ogImageAlt ?? `${title} social preview`;
 
 const anb = await getCollection('anb');
 const publishedAnbCount = anb.filter((issue) => issue.data.draft !== true).length;

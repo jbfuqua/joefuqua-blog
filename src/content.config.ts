@@ -17,6 +17,7 @@ const articles = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
   schema: baseSchema.extend({
     ogImage: z.string().optional(),        // overrides the auto-generated OG card, e.g. a figure
+    ogImageAlt: z.string().optional(),     // descriptive social/hero image alt text
   }),
 });
 

@@ -21,6 +21,7 @@ const { Content } = await render(post);
   excerpt={post.data.excerpt}
   source={post.data.source}
   ogImage={post.data.ogImage}
+  ogImageAlt={post.data.ogImageAlt}
   currentPath={`/writing/${post.data.slug || post.id}`}
 >
   <Content />
