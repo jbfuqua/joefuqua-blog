@@ -9,14 +9,20 @@ interface Props {
   thesis?: string;
   issue?: number;
   source?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
   currentPath?: string;
 }
 
-const { title, date, thesis, issue, source, currentPath } = Astro.props;
+const { title, date, thesis, issue, source, ogImage: ogImageOverride, ogImageAlt, currentPath } = Astro.props;
 
 const slug = currentPath?.replace('/algorithm-and-blues/', '') || '';
+const toAbsolute = (path: string) =>
+  path.startsWith('http') ? path : `https://www.joefuqua.blog${path.startsWith('/') ? '' : '/'}${path}`;
 const perPostOgImage = slug ? `https://www.joefuqua.blog/algorithm-and-blues/og/${slug}.png` : null;
-const ogImage = perPostOgImage ?? 'https://www.joefuqua.blog/og-algorithm-and-blues.png';
+const ogImage = ogImageOverride
+  ? toAbsolute(ogImageOverride)
+  : perPostOgImage ?? 'https://www.joefuqua.blog/og-algorithm-and-blues.png';
 const publishedTime = new Date(date).toISOString();
 
 const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -39,6 +45,7 @@ const nextIssue = currentIndex < allIssues.length - 1 ? allIssues[currentIndex +
   description={thesis}
   currentPath={currentPath}
   ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
   ogType="article"
   publishedTime={publishedTime}
 >

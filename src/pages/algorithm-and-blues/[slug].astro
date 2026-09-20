@@ -20,6 +20,8 @@ const { Content } = await render(post);
   thesis={post.data.excerpt}
   issue={post.data.issue}
   source={post.data.source}
+  ogImage={post.data.ogImage}
+  ogImageAlt={post.data.ogImageAlt}
   currentPath={`/algorithm-and-blues/${post.data.slug || post.id}`}
 >
   <Content />

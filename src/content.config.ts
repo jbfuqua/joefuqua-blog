@@ -26,6 +26,8 @@ const anb = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/anb' }),
   schema: baseSchema.extend({
     issue: z.number().optional(),          // issue number e.g. 43
+    ogImage: z.string().optional(),        // overrides the auto-generated OG card
+    ogImageAlt: z.string().optional(),     // descriptive social image alt text
   }),
 });
 
